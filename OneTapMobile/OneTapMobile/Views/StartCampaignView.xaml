@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.StartCampaignView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms" xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+             x:DataType="viewmodels:StartCampaignViewModel"
+             ios:Page.UseSafeArea="false">
+    <!--Page Background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid x:Name="ContainerGrid" VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Navigation Bar-->
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                </Grid>
+                <!--for Ios-->
+                <customcontrol:GradientLabel Grid.Row="1" FontSize="28" Text="Welcome to your first campaign" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10"  TextColor1="#6522A8" TextColor2="#AC47ED">
+                    <customcontrol:GradientLabel.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android="False"/>
+                    </customcontrol:GradientLabel.IsVisible>
+
+                    <!--for Android-->
+                </customcontrol:GradientLabel>
+                <Label   TextColor="#862FC1"  Grid.Row="1" FontSize="28" Text="Welcome to your first campaign" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+                    </Label.IsVisible>
+                </Label>
+
+                <!--Video Option-->
+                <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,10,0,10" Spacing="10">
+
+                    <Grid HeightRequest="200" HorizontalOptions="FillAndExpand">
+                        <!--<mm:VideoView Grid.Row="0" HeightRequest="200" x:Name="CampVideo"  ShowControls="True" AutoPlay="True" Repeat="All"/>-->
+
+                        <!--<WebView Grid.Row="0" x:Name="CampVideo" Source=""/>-->
+                        <Frame  Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" CornerRadius="1" HasShadow="False" Padding="0" Margin="10" BackgroundColor="Black">
+                            <customcontrol:CustomVideoPlayerView x:Name="videoView" BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+                            <!--<Grid RowDefinitions="3*,Auto,3*" ColumnDefinitions="3*,Auto,3*">
+                                <shared:VideoView x:Name="VideoView" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" />
+                                <StackLayout Grid.Row="1" Grid.Column="1">
+                                    <Button x:Name="playPauseButton" Text="Play" IsVisible="false" Clicked="Button_Clicked" BackgroundColor="#FFE3A5" CornerRadius="15" TextColor="Black" FontAttributes="Bold" Padding="0" HeightRequest="30" FontSize="8" WidthRequest="70"></Button>
+                                </StackLayout>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ShowHidePlayButton"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>-->
+                        </Frame>
+                        <!--<Frame x:Name="Maximize_frame" Grid.Row="0" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"  HeightRequest="22" WidthRequest="22" CornerRadius="5" Padding="0" Margin="0,10,0,0" BackgroundColor="Black" Opacity="0.8">
+                            <ImageButton Source="Maximize" Clicked="Maximize_Clicked" BackgroundColor="Transparent"/>
+                            <Frame.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+                            </Frame.IsVisible>
+                        </Frame>-->
+
+                    </Grid>
+
+                    <Label  x:Name="WatchVideoLabel" Text="Watch a quick video to get the most out of OneTap."  Margin="10" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="Black"/>
+                </StackLayout>
+
+                <!--Next Button Option-->
+
+                <Frame Grid.Row="3" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="10" VerticalOptions="FillAndExpand">
+                    <Label Text="Next"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Nextbutton"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding  IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

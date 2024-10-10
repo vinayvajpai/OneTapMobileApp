@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "164914814140",
+    "project_id": "onetapsocial-591ea",
+    "storage_bucket": "onetapsocial-591ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164914814140:android:56f90eddb57ab806cbc4b9",
+        "android_client_info": {
+          "package_name": "com.onetapsocial.onetap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164914814140-4dn8u19gvcc0vocqbv75947d9m6tbgl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onetapsocial.onetap",
+            "certificate_hash": "38abHqweLr316QGNDcAyeDTrWZkBQq8v6c4fa9d6"
+          }
+        },
+        {
+          "client_id": "164914814140-td9ig0qtomqfl53rtjb5da69qcnqnfs6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onetapsocial.onetap",
+            "certificate_hash": "8a54fce4cd04a451b2480807701cf0cf9bea845f"
+          }
+        },
+        {
+          "client_id": "164914814140-6861rlr10hmnbiqcic0sp4hnni46a6ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUmqLrfd7Io2pklr1_cNSAGtwNQS30sEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164914814140-6861rlr10hmnbiqcic0sp4hnni46a6ha.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "164914814140-23uj8vaeitkef91g1p92rr39od6as8nt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.onetapsocial.onetap",
+                "app_store_id": "1643477272"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

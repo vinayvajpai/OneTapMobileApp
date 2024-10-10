@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.CreateGoogleAdsAccView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <WebView Source="http://surl.li/cbysp" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,40,0,0" BackgroundColor="#568135"  />
+
+            <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Label Text="Go Back to Login Menu"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                <Frame.GestureRecognizers >
+                <TapGestureRecognizer Tapped ="SignOut_Tapped" NumberOfTapsRequired="1"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

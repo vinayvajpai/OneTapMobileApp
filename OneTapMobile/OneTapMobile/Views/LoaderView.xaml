@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.LoaderView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading;assembly=FFImageLoading"
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#A23DEA"
+                          Offset="0.0"/>
+            <GradientStop Color="#6132C1"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <StackLayout >
+            <Image x:Name="image" Source="Loader.gif"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsAnimationPlaying="True"/>
+            <Label x:Name="LoaderTxt" Text="{Binding LoaderText}" FontSize="18" FontFamily="SemiBoldFont"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

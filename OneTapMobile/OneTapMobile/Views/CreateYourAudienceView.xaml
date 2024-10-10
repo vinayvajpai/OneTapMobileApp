@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.CreateYourAudienceView"
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             ios:Page.UseSafeArea="false">
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+                <StackLayout Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start">
+                    <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Create Your Audience" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0">
+                        <customcontrol:GradientLabel.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                        </customcontrol:GradientLabel.IsVisible>
+                    </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1" FontSize="28" Text="Create Your Audience" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0" >
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                        </Label.IsVisible>
+                    </Label>
+                </StackLayout>
+                <!--Campaign Form-->
+                <ScrollView Grid.Row="2" Margin="10,10" VerticalScrollBarVisibility="Never">
+                    <StackLayout>
+                        <!--Campaign Name-->
+                        <StackLayout x:Name="tarLocStk">
+                            <Label Text="Target location (city or country)" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="14"/>
+                            <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <customcontrol:CustomEntry x:Name="TargetlocTxt"  Text="{Binding TargetlocTxt}"  Placeholder="e.g. Sydney (Optional)" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Focused="TargetlocTxt_Focused" />
+                                </StackLayout>
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TargetlocTxt}, Path=IsFocused}" Value="false" >
+                                        <Setter Property="BorderColor" Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TargetlocTxt}, Path=IsFocused}" Value="True" >
+                                        <Setter Property="BorderColor" Value="#AC47ED"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                            </Frame>
+                        </StackLayout>
+                        <StackLayout x:Name="LocationTags">
+                            <FlexLayout x:Name="LocflexLayout" IsVisible="true"  Wrap="Wrap"  JustifyContent="Start" ChildRemoved="LocflexLayout_ChildRemoved" />
+                        </StackLayout>
+                        <Label Text="-OR-" Margin="0,5" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="18" HorizontalOptions="CenterAndExpand"/>
+                        <StackLayout x:Name="postCodeStk">
+                            <Label Text="Postal Code" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="14"/>
+                            <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5"> 
+                                <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <customcontrol:CustomEntry x:Name="TargetPostTxt"  Text="{Binding PostCodeTxt}"  Placeholder="e.g. 452021 (Optional)" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Focused="TargetPostTxt_Focused" />
+                                </StackLayout>
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TargetPostTxt}, Path=IsFocused}" Value="false" >
+                                        <Setter Property="BorderColor" Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TargetPostTxt}, Path=IsFocused}" Value="True" >
+                                        <Setter Property="BorderColor" Value="#AC47ED"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                            </Frame>
+                        </StackLayout>
+
+                         <StackLayout x:Name="PostTags">
+                            <FlexLayout x:Name="PostflexLayout" IsVisible="true"  Wrap="Wrap"  JustifyContent="Start" ChildRemoved="PostflexLayout_ChildRemoved" />
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Demographic interests or behaviours" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="14"/>
+                            <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <customcontrol:CustomEntry x:Name="DemoInterestsTxt"  Text="{Binding DemoInterestsTxt,Mode=TwoWay}"  Placeholder="e.g. Ice cream" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Focused="DemoInterestsTxt_Focused"/>
+                                </StackLayout>
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference DemoInterestsTxt}, Path=IsFocused}" Value="false" >
+                                        <Setter Property="BorderColor" Value="Transparent"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference DemoInterestsTxt}, Path=IsFocused}" Value="True" >
+                                        <Setter Property="BorderColor" Value="#AC47ED"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                            </Frame>
+                        </StackLayout>
+
+                       <StackLayout x:Name="DemTagsGroup">
+                            <Label Text="Minimum 3 tags, max 10." FontFamily="{StaticResource NormalFont}" TextColor="#1C1C1C" FontSize="14" HorizontalOptions="Start" VerticalOptions="FillAndExpand" />
+                            <FlexLayout x:Name="DemflexLayout"  Wrap="Wrap"  JustifyContent="Start"  IsVisible="true" ChildRemoved="DemflexLayout_ChildRemoved"/>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Age Range" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="14"/>
+                            <StackLayout Orientation="Horizontal" Margin="10,0">
+                            <Label Text="Min" FontFamily="{StaticResource NormalFont}" TextColor="#1C1C1C" FontSize="14" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="max" FontFamily="{StaticResource NormalFont}" TextColor="#1C1C1C" FontSize="14" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" > 
+                            <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="20">
+                                    <customcontrol:CustomDropDown  Grid.Row="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="MinAgedropdown" ItemsSource="{Binding MinAgeRangeitems, Mode=TwoWay}" FontFamily="{StaticResource NormalFont}" ItemSelected="MinAgedropdown_ItemSelected" SelectedIndex="{Binding SelectedMinAgeRange, Mode=TwoWay}"/>
+                                <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MinAgedropdown}, Path=IsFocused}" Value="false" >
+                                        <Setter Property="BorderColor" Value="Transparent"/>
+                                    </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MinAgedropdown}, Path=IsFocused}" Value="True" >
+                                        <Setter Property="BorderColor" Value="#AC47ED"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <Frame.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+                                </Frame.IsVisible>
+                            </Frame>
+
+                            <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="20">
+                                    <customcontrol:CustomDropDown  Grid.Row="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="MaxAgeDropDown" ItemsSource="{Binding MaxAgeRangeitems, Mode=TwoWay}" FontFamily="{StaticResource NormalFont}" ItemSelected="MaxAgeDropDown_ItemSelected" SelectedIndex="{Binding SelectedMaxAgeRange, Mode=TwoWay}"/>
+                                <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MaxAgeDropDown}, Path=IsFocused}" Value="false" >
+                                        <Setter Property="BorderColor" Value="Transparent"/>
+                                    </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MaxAgeDropDown}, Path=IsFocused}" Value="True" >
+                                        <Setter Property="BorderColor" Value="#AC47ED"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <Frame.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="True"/>
+                                </Frame.IsVisible>
+                            </Frame>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="20">
+                                    <Grid>
+                                        <customcontrol:CustomDropDown  Grid.Row="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="MinDropDownIos" ItemsSource="{Binding MinAgeRangeitems, Mode=TwoWay}" FontFamily="{StaticResource NormalFont}" ItemSelected="MinAgedropdown_ItemSelected" SelectedIndex="{Binding SelectedMinAgeRange, Mode=TwoWay}"/>
+                                        <ImageButton Source="DropDown" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="15" WidthRequest="15" BackgroundColor="Transparent" Margin="0,0,15,0"/>
+                                    </Grid>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MinDropDownIos}, Path=IsFocused}" Value="false" >
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MinDropDownIos}, Path=IsFocused}" Value="True" >
+                                            <Setter Property="BorderColor" Value="#AC47ED"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                    <Frame.IsVisible>
+                                        <OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android="False"/>
+                                    </Frame.IsVisible>
+
+                                </Frame>
+
+                                <Frame Style="{StaticResource FrameStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="20">
+                                    <Grid>
+                                        <customcontrol:CustomDropDown  Grid.Row="0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="MaxDropDownIos" ItemsSource="{Binding MaxAgeRangeitems, Mode=TwoWay}" FontFamily="{StaticResource NormalFont}" ItemSelected="MaxAgeDropDown_ItemSelected" SelectedIndex="{Binding SelectedMaxAgeRange, Mode=TwoWay}"/>
+                                        <ImageButton Source="DropDown" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="15" WidthRequest="15" BackgroundColor="Transparent" Margin="0,0,15,0"/>
+                                    </Grid>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MaxDropDownIos}, Path=IsFocused}" Value="false" >
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference MaxDropDownIos}, Path=IsFocused}" Value="True" >
+                                            <Setter Property="BorderColor" Value="#AC47ED"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                    <Frame.IsVisible>
+                                        <OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android="False"/>
+                                    </Frame.IsVisible>
+
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+
+
+                        <!--Demographic gender-->
+
+
+                        <StackLayout>
+                            <Label Text="Gender" FontFamily="{StaticResource SemiBoldFont}" TextColor="#1C1C1C" FontSize="14"/>
+                            <StackLayout  Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                                <Frame x:Name="FAllGender" Style="{StaticResource FrameStyle}"  xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="8" Padding="20,10">
+                                    <Label Text="All" x:Name="OtherGender"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="#AC47ED" FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Other_SelectedCmd"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Frame x:Name="FGenderMale" Style="{StaticResource FrameStyle}"  xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" BackgroundColor="White" Margin="10,0" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="8" Padding="20,10">
+                                    <Label Text="Male"  x:Name="GenderMale" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="#AC47ED"  FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="Male_SelectedCmd"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Frame x:Name="FGenderFemale" Style="{StaticResource FrameStyle}"  xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" BackgroundColor="White"  VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="8" Padding="20,10">
+                                    <Label Text="Female" x:Name="GenderFemale"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="#AC47ED"  FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="Female_SelectedCmd"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+                <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#BE7CE9" x:Name="SaveAudienceFrame" IsEnabled="False" Opacity="0.8">
+                        <Label Text="Save Audience" x:Name="SaveAudienceText"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Opacity="0.5" TextColor="#FFFFFF" FontSize="16" FontFamily="{StaticResource SemiBoldFont}">
+                            <!--<Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference DemflexLayout},Path=Children.Count}" Value="2"/>
+                                        <BindingCondition Binding="{Binding Source={x:Reference LocflexLayout},Path=Children.Count}" Value="2" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </MultiTrigger>
+                            </Label.Triggers>-->
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SaveAudienceCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <!--<Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference LocflexLayout},Path=Children.Count}" Value="2" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference LocflexLayout},Path=Children.Count}" Value="2" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                                <Setter Property="BackgroundColor" Value="#AC47ED" />
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>-->
+                    </Frame>
+                </StackLayout>
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

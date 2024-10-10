@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.TryAnotherGoogleAdAccView"
+              NavigationPage.HasNavigationBar="False"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" xmlns:Popups="clr-namespace:OneTapMobile.Popups" xmlns:converter="clr-namespace:OneTapMobile.Converters"
+             ios:Page.UseSafeArea="false">
+    <!--Page backgorund-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Resources>
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+        <converter:EmailToBoolConverter x:Key="EmailTextChecked" />
+        <converter:LengthConverter x:Key="TextLengthCounter"/>
+    </ContentPage.Resources>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid Margin="0,0,0,0">
+            <StackLayout Margin="{Binding SafeAreaSpacing}" VerticalOptions="FillAndExpand" Spacing="20">
+                <!--Navigation bar-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="8*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                </Grid>
+                <!--remaining page views-->
+                <StackLayout Margin="15,0" VerticalOptions="StartAndExpand" Spacing="20">
+                    <customcontrol:GradientLabel  TextColor1="#6522A8" TextColor2="#AC47ED"  FontSize="28" Text="Create Google Ads Account" HorizontalOptions="FillAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                        <customcontrol:GradientLabel.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                        </customcontrol:GradientLabel.IsVisible>
+                    </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1"  FontSize="28" Text="Create Google Ads Account" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                        </Label.IsVisible>
+                    </Label>
+
+                    <!--Account Name Entry field-->
+                    <Frame Style="{StaticResource FrameStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" BorderColor="Transparent">
+                        <customcontrol:CustomEntry x:Name="AccountNameEntry" Margin="5,-15" Placeholder="Account Name" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"  FontFamily="{StaticResource NormalFont}" Text="{Binding AccountName}"/>
+                            <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference AccountNameEntry}, Path=IsFocused}" Value="false" >
+                                <Setter Property="BorderColor" Value="Transparent"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference AccountNameEntry}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Time Zone Entry Field-->
+                    <Frame Style="{StaticResource FrameStyle}" BorderColor="Transparent" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                        <customcontrol:CustomEntry x:Name="TimeZoneEnty" Margin="5,-15" Placeholder="Enter The TimeZone" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"  FontFamily="{StaticResource NormalFont}" Text="{Binding TimeZoneVal}"/>
+                            <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TimeZoneEnty}, Path=IsFocused}" Value="false" >
+                                <Setter Property="BorderColor" Value="Transparent"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference TimeZoneEnty}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Currency Entry Field-->
+                    <Frame Style="{StaticResource FrameStyle}" BorderColor="Transparent" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                        <customcontrol:CustomEntry x:Name="CurrencyEntry" Margin="5,-15" Placeholder="Enter The Currency" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand"  FontFamily="{StaticResource NormalFont}" Text="{Binding CurrencyVal}"/>
+                            <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CurrencyEntry}, Path=IsFocused}" Value="false" >
+                                <Setter Property="BorderColor" Value="Transparent"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CurrencyEntry}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Next Button-->
+                    <Frame Style="{StaticResource FrameStyle}"  BackgroundColor="#BE7CE9" IsEnabled="False" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                        <Label Text="Create"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Opacity="0.5" TextColor="White" FontSize="16" FontFamily="{StaticResource SemiBoldFont}">
+                            <Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference AccountNameEntry}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference TimeZoneEnty}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference CurrencyEntry}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </MultiTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NextbtnCmd}"/>
+                        </Frame.GestureRecognizers>
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference AccountNameEntry}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference TimeZoneEnty}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference CurrencyEntry}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                                <Setter Property="BackgroundColor" Value="#AC47ED" />
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            <!--Loader Views-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Creating Google Ad account, please wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <Popups:GoogleAdsAddSuccess  IsVisible="{Binding IsChecking , Mode=TwoWay , FallbackValue= false}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>    
+    

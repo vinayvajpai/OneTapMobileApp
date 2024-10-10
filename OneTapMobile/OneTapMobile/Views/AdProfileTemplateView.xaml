@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False"
+             ios:Page.UseSafeArea="false"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:converter="clr-namespace:OneTapMobile.Converters" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="OneTapMobile.Views.AdProfileTemplateView">
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid Margin="{Binding SafeAreaSpacing}" RowSpacing="10" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+                <StackLayout Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Start">
+                    <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Choose Ad Profile" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0">
+                        <customcontrol:GradientLabel.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                        </customcontrol:GradientLabel.IsVisible>
+                    </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1" FontSize="28" Text="Choose Ad Profile" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0" >
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                        </Label.IsVisible>
+                    </Label>
+                </StackLayout>
+                <Label Grid.Row="2"  Text="Choose one of the offers from below that are known to work the best in your industry"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center" HorizontalTextAlignment="Center" Opacity="1.0" TextColor="Black" FontSize="12" FontFamily="{StaticResource SemiBoldFont}"/>
+                <StackLayout Grid.Row="3">
+                    <Grid RowDefinitions="8*,Auto">
+                      <CarouselView Grid.Row="0" Loop="False" Margin="0,0"  x:Name="TempProfiles" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemsSource="{Binding AdProfileList}"  IndicatorView="indicatorView" CurrentItem="{Binding CurrentTemplate}" BackgroundColor="Transparent">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                    <!--<ScrollView  VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">-->
+                                        <!--Designed by Sir-->
+                                        <!--<Frame Padding="0" Margin="10,10" BackgroundColor="White" HasShadow="False">
+                                            <Grid Margin="10">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <StackLayout Grid.Row="0">
+                                                    <StackLayout  Orientation="Horizontal">
+                                                        <Label Text="{Binding industry}" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                        <Frame HasShadow="False" HorizontalOptions="EndAndExpand" BackgroundColor="#AC47ED" WidthRequest="80" HeightRequest="30" Padding="2" CornerRadius="10" BorderColor="#AC47ED">
+                                                            <Label Text="{Binding button_title}" FontSize="14" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                        </Frame>
+                                                    </StackLayout>
+                                                    <Label Text="{Binding primary_text}" FontSize="11" TextColor="Black" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                    <Label Text="{Binding Description1}" FontSize="10" TextColor="SlateGray" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                </StackLayout>
+                                                <StackLayout Grid.Row="1" IsClippedToBounds="True">
+                                                    <Label Text="Sponsored ." FontFamily="{StaticResource NormalFont}"/>
+                                                    <Grid>
+                                                        <ffimageloading:CachedImage x:Name="TemplateImage" Aspect="AspectFit" HeightRequest="150" Source="{Binding AdImageVideo}"/>
+                                                        <ActivityIndicator Grid.Row="0" Color="White" BindingContext="{x:Reference TemplateImage}"  IsRunning="{Binding IsLoading}"  IsVisible="{Binding IsLoading}" HeightRequest="150"  />
+                                                    </Grid>
+                                                    <Label  Text="{Binding headline}" FontSize="15" TextColor="Black" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                    <Label   Text="{Binding Description2}" FontSize="13" TextColor="SlateGray" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>-->
+                                        <!--End of Designed by sir-->
+                                        <!--design by me old template-->
+                                        <!--<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <Frame Padding="10">
+                                                    <Grid RowSpacing="5">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="5*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Grid HeightRequest="30" Grid.Row="0" RowSpacing="0">
+
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5*"/>
+                                                                <RowDefinition Height="5*"/>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="7*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Image Source="{Binding CompanyIcon ,Mode=TwoWay}" Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" HeightRequest="15" WidthRequest="15"/>
+
+                                                        <Label Grid.Row="0" Text="{Binding campaign_name, Mode=TwoWay}" FontSize="10" FontAttributes="Bold" Grid.Column="1" TextColor="Blue" />
+
+                                                            <Grid Grid.Column="1" Grid.Row="1">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                            <Label  Grid.Row="0" Grid.Column="0" Text="{Binding industry , Mode=TwoWay}" FontSize="10" TextColor="Black" />
+                                                                --><!--<Image  Grid.Row="0" Grid.Column="1"  Source="GlobeIcon" HeightRequest="7" WidthRequest="7" />--><!--
+                                                            </Grid>
+
+                                                            <Frame Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Padding="1" CornerRadius="3" HasShadow="False" BorderColor="LightGray" >
+                                                                <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    --><!--<Image Grid.Row="0" Grid.Column="0" Source="{Binding ButtonImage,Mode=TwoWay}" HeightRequest="10" WidthRequest="10"/>--><!--
+                                                                <Label Grid.Row="0" Grid.Column="1"  Text="{Binding button_title, Mode=TwoWay}" TextColor="Black" FontSize="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                                </Grid>
+                                                            </Frame>
+                                                        </Grid>
+
+                                                    <Label Grid.Row="1" TextColor="Black" Text="{Binding headline, Mode=TwoWay}" MaxLines="2" FontSize="14" LineBreakMode="TailTruncation" FontFamily="{StaticResource SemiBoldFont}" Margin="2,5"/>
+
+                                                        <Grid  Grid.Row="2">
+                                                        <ffimageloading:CachedImage x:Name="AdImageVideo" Grid.Row="0" Source="{Binding AdImageVideo, Mode=TwoWay}" HeightRequest="150" WidthRequest="150" Aspect="AspectFill" />
+                                                        <ActivityIndicator Grid.Row="0" Color="Gray" BindingContext="{x:Reference AdImageVideo}"  IsRunning="{Binding IsLoading}"  IsVisible="{Binding IsLoading}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                                        </Grid>
+                                                    <StackLayout Grid.Row="3" Margin="2,0">
+                                                        <Label TextColor="Black"  Text="{Binding primary_text, Mode=TwoWay}" FontSize="10"  />
+                                                    </StackLayout>
+
+                                                    </Grid>
+                                                </Frame>
+                                            </StackLayout>-->
+                                        <!--End of Designed by me old template-->
+                                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <!--<ScrollView  VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never">-->
+                                            <Frame Padding="5" CornerRadius="5" HasShadow="False" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" >
+                                           
+                                                <Grid RowDefinitions="Auto,2.5*,7*,Auto">
+
+                                                    <Grid Grid.Row="0" RowDefinitions="*" ColumnDefinitions="Auto,8*" RowSpacing="0"  >
+                                                        <Frame Grid.Column="0" Padding="0" BackgroundColor="Transparent" CornerRadius="200" Margin="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" HasShadow="False">
+                                                            <Image Grid.Column="0" Source="ProfilePic"   />
+                                                        </Frame>
+                                                        <Grid Grid.Column="1" RowSpacing="-5" Padding="0" RowDefinitions="Auto,Auto">
+
+                                                            <Grid Grid.Row="0" RowDefinitions="*" ColumnDefinitions="Auto,Auto" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding fbPageName, Mode=TwoWay}" FontFamily="{StaticResource SemiBoldFont}" TextColor="Black" Margin="0" Padding="0"/>
+                                                                <Image Grid.Row="0" Grid.Column="1" Source="BlueRightTick" HeightRequest="10" WidthRequest="10"/>
+                                                            </Grid>
+
+                                                            <Grid Grid.Row="1" RowDefinitions="Auto" ColumnDefinitions="Auto,Auto"  VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" ColumnSpacing="0">
+                                                                <Label Grid.Row="0" Grid.Column="0" Text="Sponsored."/>
+                                                                <Image Grid.Row="0" Grid.Column="1" Source="GlobeIcon"  HeightRequest="10" WidthRequest="10"/>
+                                                            </Grid>
+
+                                                        </Grid>
+
+                                                    </Grid>
+
+                                                    <Label Grid.Row="1" Text="{Binding primary_text , Mode=TwoWay}" MaxLines="3" FontFamily="{StaticResource NormalFont}" TextColor="Black" FontSize="12"/>
+
+                                                    <Grid  Grid.Row="2">
+                                                        <ffimageloading:CachedImage x:Name="AdImageVideo" Grid.Row="0" Source="{Binding AdImageVideo, Mode=TwoWay}" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                                        <ActivityIndicator Grid.Row="0" Color="Gray" BindingContext="{x:Reference AdImageVideo}"  IsRunning="{Binding IsLoading}"  IsVisible="{Binding IsLoading}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                                    </Grid>
+
+                                                    <Grid Grid.Row="3" ColumnDefinitions="8*,Auto" RowDefinitions="Auto,Auto" RowSpacing="0" >
+                                                        <Label Grid.Row="0" Text="www.example.com/ppc-services" FontFamily="{StaticResource NormalFont}" TextColor="#8F9091" FontSize="10" TextTransform="Uppercase" />
+                                                    <Label Grid.Row="1" Text="{Binding headline, Mode=TwoWay}" FontFamily="{StaticResource SemiBoldFont}" TextColor="Black" FontSize="12"/>
+                                                        <!--<Label Grid.Row="2" Text="{Binding OtherText, Mode=TwoWay}" FontFamily="{StaticResource NormalFont}" TextColor="#8F9091" FontSize="10"/>-->
+
+                                                    <Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Padding="20,10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HasShadow="False" BackgroundColor="#DFE0E6" CornerRadius="10" Margin="0,0,10,0" >
+                                                            <Label Text="{Binding button_title, Mode=TwoWay}"  FontFamily="{StaticResource SemiBoldFont}" TextColor="Black" FontSize="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                                                        </Frame>
+                                                    </Grid>
+                                                </Grid>
+                                            </Frame>
+                                    <!--</ScrollView>-->
+                                     </StackLayout>
+                                </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                      <IndicatorView Grid.Row="1"  x:Name="indicatorView"  IndicatorColor="WhiteSmoke" SelectedIndicatorColor="#AC47ED" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Padding="0" Margin="0" ItemsSource="{Binding AdProfileList}" />
+                    </Grid>
+                </StackLayout>
+                <StackLayout Grid.Row="4" Spacing="10" VerticalOptions="Start">
+                    <Label  Text="Onetap will automatically recommend text for your ads based on your selection. You can change to your liking."  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Opacity="1.0" TextColor="Black" FontSize="12" FontFamily="{StaticResource SemiBoldFont}"/>
+                </StackLayout>
+                <Frame Grid.Row="5" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED" x:Name="Frame1" Opacity="1.0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Label Text="Continue"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Opacity="1.0" TextColor="#FFFFFF" FontSize="16" FontFamily="{StaticResource SemiBoldFont}" Margin="0"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ContinueBtnCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Label Grid.Row="6" Margin="0" Padding="0" Text="Write your own ad" TextDecorations="Underline" TextColor="#AC47ED" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SkipTemplateCmd}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+
+            </Grid>
+
+            <!--Loader-->
+            <Popups:LoaderView IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Popups.CampaignSuccess"
+             NavigationPage.HasNavigationBar="False"            
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true" Background="#FFFFFF" >
+    <!--<ContentView.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#fff2d6" Offset="0.0"/>
+            <GradientStop Color="#ffe3a5" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentView.Background>-->
+    <!--Page Content-->
+    <ContentView.Content>
+        <StackLayout Spacing="0" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+            <Image Source="party.png"/>
+            <Label Text="Congrats you’ve successfully added your campaign!" FontFamily="{StaticResource BoldFont}" FontSize="24" TextColor="#8826C7" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+    </ContentView.Content>
+</ContentView>

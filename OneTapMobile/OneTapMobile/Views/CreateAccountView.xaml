@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             x:Class="OneTapMobile.Views.CreateAccountView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels"
+             x:DataType="viewmodels:CreateAccountViewModel"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:converter="clr-namespace:OneTapMobile.Converters"
+             ios:Page.UseSafeArea="false">
+    <!--page background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--converters Used-->
+    <ContentPage.Resources>
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+        <converter:EmailToBoolConverter x:Key="EmailTextChecked" />
+        <converter:LengthConverter x:Key="TextLengthCounter"/>
+    </ContentPage.Resources>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid Margin="0,0,0,0">
+            <StackLayout Margin="{Binding SafeAreaSpacing}" VerticalOptions="FillAndExpand" Spacing="20">
+                <!--Navigation bar-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="8*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackBtn}"/>
+                    <Label Grid.Column="1" Grid.Row="0"  Text="Create Your Account" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+                </Grid>
+                <!--remaining page views-->
+                <StackLayout Margin="15,20" VerticalOptions="StartAndExpand" Spacing="20">
+                    <!--Email Entry field-->
+                    <Frame Style="{StaticResource FrameStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent"  Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <customcontrol:CustomEntry x:Name="emailTxt" Margin="0,-15" Placeholder="Email address" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Keyboard="Email" FontFamily="{StaticResource NormalFont}" Text="{Binding Email}"/>
+                            <Image Source="InfoIcon.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" IsVisible="false" BackgroundColor="Transparent">
+                                <Image.Triggers>
+                                    <MultiTrigger TargetType="Image">
+                                        <MultiTrigger.Conditions>
+                                            <BindingCondition Binding="{Binding Source={x:Reference emailTxt}, Path=Text ,Converter={StaticResource EmailTextChecked}}" Value="false" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="IsVisible" Value="true"/>
+                                    </MultiTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </StackLayout>
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference emailTxt}, Path=IsFocused}" Value="false" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference emailTxt}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference emailTxt}, Path=Text ,Converter={StaticResource EmailTextChecked}}" Value="false" >
+                                <Setter Property="BorderColor" Value="#F55937"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Password Entry Field-->
+                    <Frame Style="{StaticResource FrameStyle}">
+                        <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <customcontrol:CustomEntry x:Name="passwordTxt"  Margin="0,-15" Placeholder="Create Password" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsPassword="{Binding IsPassword,Mode=TwoWay}" Keyboard="Default" FontFamily="{StaticResource NormalFont}" Text="{Binding Password}"/>
+                            <ImageButton Source="ViewPassword.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ViewPassWord, Mode=TwoWay}" Command="{Binding ViewPassWordCmd}" BackgroundColor="Transparent"/>
+                            <ImageButton Source="hidepassword.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding HidePassWord, Mode=TwoWay}" Command="{Binding HidePassWordCmd}" BackgroundColor="Transparent"/>
+                        </StackLayout>
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference passwordTxt}, Path=IsFocused}" Value="false " >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference passwordTxt}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference passwordTxt}, Path=Text.Length,Converter={StaticResource TextLengthCounter}}" Value="true" >
+                                <Setter Property="BorderColor" Value="#F55937"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Caution for password Length-->
+                    <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                        <Image Source="info.png" HeightRequest="15" WidthRequest="15" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                        <Label Text="password must be at least 8 charecters long" IsVisible="{Binding PasswordErrorText}" TextColor="Black" FontSize="12" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                    <!--Confirm Password Field-->
+                    <Frame Style="{StaticResource FrameStyle}">
+                        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent"  Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Spacing="0">
+                            <customcontrol:CustomEntry x:Name="cfrmPasswordTxt"  Margin="0,-15" Placeholder="Confirm Password" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" IsPassword="{Binding IsConfirmPassword,Mode=TwoWay}" Keyboard="Default" FontFamily="{StaticResource NormalFont}"  Text="{Binding ConfirmPassword}"/>
+                            <ImageButton  Source="ViewPassword.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ViewConPassWord, Mode=TwoWay}" Command="{Binding ViewCofirmPassCmd}" BackgroundColor="Transparent"/>
+                            <ImageButton Source="hidepassword.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding HideConPassWord, Mode=TwoWay}" Command="{Binding HideCofirmPassCmd}" BackgroundColor="Transparent"/>
+                        </StackLayout>
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference cfrmPasswordTxt}, Path=IsFocused}" Value="false " >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference cfrmPasswordTxt}, Path=IsFocused}" Value="True" >
+                                <Setter Property="BorderColor" Value="#AC47ED"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference cfrmPasswordTxt}, Path=Text.Length,Converter={StaticResource TextLengthCounter}}" Value="true" >
+                                <Setter Property="BorderColor" Value="#F55937"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Sign Up Button-->
+                    <Frame Style="{StaticResource FrameStyle}"  BackgroundColor="#BE7CE9" IsEnabled="False" >
+                        <Label Text="Sign Up"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Opacity="0.5" TextColor="White" FontSize="16" FontFamily="{StaticResource SemiBoldFont}">
+                            <Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference emailTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference passwordTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference cfrmPasswordTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </MultiTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignUpCmd}"/>
+                        </Frame.GestureRecognizers>
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference emailTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference passwordTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                    <BindingCondition Binding="{Binding Source={x:Reference cfrmPasswordTxt}, Path=Text.Length,Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                                <Setter Property="BackgroundColor" Value="#AC47ED"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <!--Terms and Condition-->
+                    <StackLayout Orientation="Horizontal" Padding="20,10" >
+                        <Label MaxLines="3" HorizontalTextAlignment="Center" TextColor="Black" FontSize="12">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="By signing up, you acknowledge that you have read the "/>
+                                    <Span Text="Privacy Policy " TextColor="#AC47ED">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PrivacyPolicyCmd}"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text="and agree to the "/>
+                                    <Span Text="Terms of Service." TextColor="#AC47ED">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TermofServiceCmd}"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <!--Loader Views-->
+            <Popups:LoaderView IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <Popups:SuccessPopup IsVisible="{Binding IsSuccess}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

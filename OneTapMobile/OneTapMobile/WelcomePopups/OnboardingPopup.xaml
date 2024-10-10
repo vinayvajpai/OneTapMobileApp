@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             x:Class="OneTapMobile.WelcomePopups.OnboardingPopup"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="false">
+    <ContentView.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <!--First Page-->
+            <Grid RowDefinitions="Auto,Auto,*" x:Name="FirstWcView" BackgroundColor="#EE6d6d6d" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+
+                <Image Grid.Row="0" Source="WelcomeCircle" Margin="25,25,25,0" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <StackLayout Spacing="20" Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5,0">
+                    <Label Text="Track with OneTap Metric" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="OneTap Metric is an intelligent algorithm to track how well your campaigns are performing." FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="Scores above 60% indicates good performance and you can learn how to improve with our Help guide." FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </StackLayout>
+
+                <Grid Grid.Row="2" ColumnDefinitions="2*,6*,2*" Padding="20,0" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,30">
+                    <Label Grid.Column="0" Text="Skip" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SkipTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Grid.Column="1" Text="1 of 3" FontSize="14" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand"/>
+                    <Label Grid.Column="2" Text="Next >" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FirstNextTapped"/>
+                    </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+              <!--Second Page-->
+            <Grid RowDefinitions="4*,5*,*" x:Name="SecondWcView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#EE6d6d6d"  Padding="10,0" Margin="0">
+
+                <Grid Grid.Row="0" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                </Grid>
+
+                <!--second part of data-->
+
+                <StackLayout Spacing="25" Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                    <Frame BackgroundColor="#FFF2D1" Opacity="1.0" CornerRadius="10" HeightRequest="50" Padding="10,10" Margin="10" HasShadow="False">
+                        <Grid>
+
+                            <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="15,0" >
+                                <StackLayout  Orientation="Horizontal"  >
+                                    <Label HorizontalOptions="StartAndExpand" FontAttributes="Bold">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="$" FontSize="12" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                                <Span Text="400" FontSize="12" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                                <Span Text=" Spent" FontSize="12" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label HorizontalOptions="EndAndExpand" FontAttributes="Bold" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="Budget " FontSize="10" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                                    <Span TextColor="#AC47ED" Text="$" FontSize="10" FontFamily="{StaticResource NormalFont}"/>
+                                                    <Span TextColor="#AC47ED" Text="800" FontSize="10" FontFamily="{StaticResource NormalFont}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                                <customcontrol:GradientProgressBar    Percentage="0.5" GradientStartColor="#9235EC" GradientEndColor="#CA59FD" HeightRequest="10" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <Label Text="Track your total campaign budget" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </StackLayout>
+                <Grid Grid.Row="2" ColumnDefinitions="2*,6*,2*"  Padding="10,0" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,30">
+                    <Label Grid.Column="0" Text="Skip" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SkipTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Grid.Column="1" Text="2 of 3" FontSize="14" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand"/>
+                    <Label Grid.Column="2" Text="Next >" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SecondNextTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+            <!--Third Page-->
+            <Grid RowDefinitions="*,Auto" x:Name="ThirdWcView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#EE6d6d6d" Margin="0">
+
+                <Grid Grid.Row="2" HorizontalOptions="EndAndExpand"  VerticalOptions="EndAndExpand" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label  Grid.Row="0" Text="Track all your campaigns" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="End" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                    <Image Grid.Row="1" Source="WCBox" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" Margin="0,0,0,10"/>
+
+                    <Grid Grid.Row="2" ColumnDefinitions="2*,6*,2*" Padding="20,0" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,30">
+                        <Label Grid.Column="0" Text="Skip" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SkipTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Grid.Column="1" Text="3 of 3" FontSize="14" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand"/>
+                        <Label Grid.Column="2" Text="Finish" FontSize="16" FontFamily="{StaticResource NormalFont}" TextColor="#FFFFFF"  HorizontalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SkipTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

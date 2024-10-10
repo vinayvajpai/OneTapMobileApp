@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.ErrorPage.ErrorView"
+             NavigationPage.HasNavigationBar="False"            
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="False" >
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#fff2d6"
+                          Offset="0.0"/>
+            <GradientStop Color="#ffe3a5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}">
+            <Grid Margin="10,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="40" WidthRequest="40" Clicked="BackButton_Clicked"/>
+                <Label Grid.Column="1" Grid.Row="0"  Text="Not Found" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            </Grid>
+            <Grid VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0"  Source="error" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit" />
+
+                <StackLayout Grid.Row="1"  Spacing="10" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Page Not Found" FontFamily="{StaticResource NormalFont}" FontSize="16" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="#8826C7"/>
+                </StackLayout>
+            </Grid>
+            <Frame Style="{StaticResource FrameStyle}" Margin="10,20" BackgroundColor="#AC47ED" HeightRequest="15" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" >
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="15" VerticalOptions="CenterAndExpand" >
+                    <Label Text="Go to Sign in" Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" FontSize="16" FontFamily="{StaticResource SemiBoldFont}" />
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SignOut_Tapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

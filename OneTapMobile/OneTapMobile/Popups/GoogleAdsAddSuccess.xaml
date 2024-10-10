@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Popups.GoogleAdsAddSuccess">
+    <ContentView.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentView.Background>
+    <!--page views-->
+    <ContentView.Content>
+        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="congrats.png" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="10"/>
+            <Label Text="Congrats!" Grid.Row="1" TextColor="#AC47ED" FontSize="25" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontFamily="{StaticResource BoldFont}"/>
+            <Label Grid.Row="2" Text="Your Google Ads account has been created" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontFamily="{StaticResource NormalFont}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

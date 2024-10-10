@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OneTapMobile.Views.EnableNotificationView"
+    NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             x:DataType="viewmodels:LoginViewModel"
+             ios:Page.UseSafeArea="false">
+    <!--Page Backgroud-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Enable Notification Option-->
+            <customcontrol:GradientLabel Text="Enable Notifications" FontSize="25" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" FontFamily="{StaticResource BoldFont}"/>
+            <Label Text="Please allow notifications on your ios device so you can stay up to date with your ads performance" FontSize="20" Grid.Row="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="20"/>
+            <Frame Grid.Row="2" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED" HeightRequest="20" VerticalOptions="FillAndExpand" Margin="20">
+                <Label Text="Enable Now"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="EnableNotification_Tapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!--Skip "Enable Notification" Option-->
+            <Label Grid.Row="3" Text="Skip for now" TextColor="#AC47ED" HorizontalOptions="Center" FontSize="20" VerticalOptions="CenterAndExpand" FontFamily="{StaticResource SemiBoldFont}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="SkipForNow_Tapped"/>
+                </Label.GestureRecognizers>
+                </Label>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

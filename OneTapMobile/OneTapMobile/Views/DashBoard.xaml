@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             xmlns:WCPopups="clr-namespace:OneTapMobile.WelcomePopups"
+             x:Class="OneTapMobile.Views.DashBoard"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             ios:Page.UseSafeArea="False">
+    <!--Page background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid x:Name="ContainerGrid" Margin="{Binding SafeAreaSpacing}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Top Bar contains "Profile" "Notification bell Icon" etc.-->
+                <Grid  Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="0" HorizontalOptions="StartAndExpand" Grid.Row="0" CornerRadius="5" Margin="0" Padding="0" HasShadow="False">
+                        <ImageButton Source="{Binding ProfilePic, Mode=TwoWay}" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding ProfilePicTapped}"/>
+                    </Frame>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="OTTwoColor" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="140" Margin="0,0,-20,0"/>
+                    <ImageButton Grid.Column="3" Grid.Row="0" Source="BookOpen" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BookTapped}"/>
+                    <ImageButton Grid.Column="4" Grid.Row="0" Source="NotificationBell" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding NotificationTapped}"/>
+                </Grid>
+                <RefreshView Grid.Row="1"  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+                    <ScrollView x:Name="Scrollpage"  HorizontalScrollBarVisibility="Never"  VerticalScrollBarVisibility="Never">
+
+                        <StackLayout Spacing="10" Padding="0,10,0,0">
+                            <!--center Doughnut Graph-->
+                            <!--<ImageButton Grid.Row="1" Source="OpScore" BackgroundColor="Transparent" Aspect="AspectFit" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />-->
+                            <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Margin="20,30,20,10" RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <Frame  Grid.Row="1" Grid.Column="1" HeightRequest="{Binding ProgGraphHeight,Mode=TwoWay}" xct:ShadowEffect.Color="#A235E5" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="20" WidthRequest="{Binding ProgGraphHeight,Mode=TwoWay}" CornerRadius="200" HasShadow="True" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <Frame.IsVisible>
+                                        <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android ="False"/>
+                                    </Frame.IsVisible>
+                                </Frame>
+                                <Frame  Grid.Row="1" Grid.Column="1" HeightRequest="140" WidthRequest="140" xct:ShadowEffect.Color="#A235E5"  xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="20"  CornerRadius="90" HasShadow="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <Frame.IsVisible>
+                                        <OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android ="True"/>
+                                    </Frame.IsVisible>
+                                </Frame>
+                                <customcontrol:CircleProgress Progress="1.0" Margin="-10"  Grid.Column="1"  Grid.Row="1" StrokeWidth="30" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ProgressStartColor="#FAF4FF" ProgressEndColor="#FAF4FF" />
+                                <customcontrol:CircleProgress Margin="-10"  Progress="{Binding MainProgressBar}" Grid.Column="1" Grid.Row="1" StrokeWidth="30" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+                                <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  Grid.Row="1" Grid.Column="1"  Spacing="-10" >
+                                    <Label FontAttributes="Bold" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding DailyPercent}" TextColor="#A235E5" FontSize="38" FontAttributes="Bold" FontFamily="{StaticResource NormalFont}"/>
+                                                <Span Text="%" TextColor="#000000" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <!--<Label  Text="Today"  FontSize="12" FontAttributes="Bold" VerticalTextAlignment="Center" FontFamily="{StaticResource SemiBoldFont}" HorizontalOptions="Center" TextColor="#A235E5"/>-->
+                                </StackLayout>
+
+                            </Grid>
+                            <!--Optimized score-->
+                            <Label  VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="Your OneTap Score is " FontSize="12" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                            <Span TextColor="#AC47ED" Text="{Binding OptimizedScore}" FontSize="12" FontFamily="{StaticResource SemiBoldFont}"  />
+                                            <Span Text="%" TextColor="#AC47ED" FontSize="12" FontFamily="{StaticResource SemiBoldFont}" />
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <!--Total Spent amount-->
+                            <!--<StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="15,0" >-->
+                            <StackLayout  Orientation="Vertical">
+                                <Label HorizontalOptions="CenterAndExpand">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="$" FontSize="14" FontFamily="{StaticResource SemiBoldFont}" TextColor="#A235E5"/>
+                                            <Span Text="{Binding SpentAmount}" FontSize="14" FontFamily="{StaticResource SemiBoldFont}" TextColor="#A235E5"/>
+                                            <Span Text=" Spent" FontSize="14" FontFamily="{StaticResource SemiBoldFont}" TextColor="#000000"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <!--<Label >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <FormattedString.Spans>
+                                                    <Span Text="Budget " FontSize="10" FontFamily="{StaticResource NormalFont}" TextColor="#000000"/>
+                                                    <Span TextColor="#AC47ED" Text="$" FontSize="10" FontFamily="{StaticResource NormalFont}"/>
+                                                    <Span TextColor="#AC47ED" Text="{Binding BudgetAmount}" FontSize="10" FontFamily="{StaticResource NormalFont}"/>
+                                                </FormattedString.Spans>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>-->
+
+                                <!--</StackLayout>-->
+                                <!--<customcontrol:GradientProgressBar    Percentage="{Binding SpentAmountProgress}" GradientStartColor="#9235EC" GradientEndColor="#CA59FD" HeightRequest="10" />-->
+                            </StackLayout>
+                            <!--campaigns List-->
+                            <StackLayout VerticalOptions="StartAndExpand"  HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand"  Margin="5,0">
+                                    <Label Text="Campaigns" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"  VerticalOptions="Center" HorizontalOptions="Start" TextColor="#000000"/>
+                                    <Label Text="OneTap Score:" FontSize="10" FontFamily="{StaticResource NormalFont}"  VerticalOptions="CenterAndExpand" Margin="5,0" HorizontalOptions="EndAndExpand" TextColor="#1C1C1C"/>
+                                </StackLayout>
+                                <StackLayout  IsVisible="{Binding IsshowEmpty}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" Margin="5,0,0,80">
+                                    <Label Text="No Campaigns" FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+                                </StackLayout>
+                                <StackLayout x:Name="Camplist" BindableLayout.ItemsSource="{Binding CampaignList,Mode=TwoWay}"  Margin="0,0,0,80">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame  BackgroundColor="#FFFFFF" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Margin="5,5" Opacity="1.0" CornerRadius="5"  HeightRequest="50" Padding="20,10,20,10" HasShadow="False">
+                                                <!--<Grid Grid.ColumnDefinitions="5,Auto">
+                                                    <Frame Grid.Column="0" BackgroundColor="{Binding statuscolor}" Padding="5" Margin="0,0" HasShadow="False"/>-->
+                                                    <!--<Grid Grid.Column="1" Margin="0,5,0,0">-->
+                                                        <Grid Margin="0,5,0,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="9*"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="5*"/>
+                                                            <RowDefinition Height="5*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <!--Campaign Title-->
+                                                    <StackLayout Grid.Row="0" Grid.Column="0" Spacing="1" Orientation="Horizontal">
+                                                        <Label  Text="{Binding name}" FontSize="12" FontFamily="{StaticResource SemiBoldFont}" TextColor="#000000" LineBreakMode="TailTruncation"  MaxLines="1" HorizontalOptions="Start"  VerticalOptions="Start"/>
+                                                        <Label  Text="•" TextColor="{Binding statuscolor}" FontSize="24" Margin="0,-10,0,0" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+                                                    </StackLayout>
+                                                        <!--Campaign Detail-->
+                                                        <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" >
+                                                            <Image Source="{Binding campaign_Icon}" HeightRequest="12" WidthRequest="12" VerticalOptions="CenterAndExpand"/>
+                                                            <Label Text="{Binding campaign_type}" FontSize="10" FontFamily="{StaticResource NormalFont}" TextColor="#000000" VerticalOptions="CenterAndExpand"/>
+                                                            <Label FontSize="10" FontFamily="{StaticResource NormalFont}" TextColor="#000000" VerticalOptions="CenterAndExpand">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding CurrencySymbol}"/>
+                                                                        <Span Text="{Binding budget_spend,StringFormat='{0:0.00}'}"/>
+                                                                        <Span Text=" / "/>
+                                                                        <Span Text="{Binding campaign_budget,StringFormat='{0:0.00}'}"/>
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </StackLayout>
+
+                                                        <!--Spent Percentage-->
+                                                        <StackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                                                            <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                                <customcontrol:CircleProgress Progress="1.0"  Grid.Column="0"  Grid.Row="0" StrokeWidth="7" Margin="-7" ProgressStartColor="#FAF4FF" ProgressEndColor="#FAF4FF"/>
+                                                                <customcontrol:CircleProgress Progress="{Binding CampaignProgress}" Grid.Column="0"  Grid.Row="0" StrokeWidth="7" Margin="-7"  ProgressStartColor="#A235E5" ProgressEndColor="#A235E5" />
+                                                                <Label  FontAttributes="Bold" Grid.Column="0"  Grid.Row="1" FontSize="12" FontFamily="{StaticResource SemiBoldFont}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="-10,0,-10,0">
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span Text="{Binding campaign_optimization_score_percentage}"/>
+                                                                            <Span Text="%"/>
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                            </Grid>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                <!--</Grid>-->
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.CampSelectedCmd,Source={x:Reference Camplist}}" CommandParameter="{Binding .}"/>
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                        <!--</Grid>-->
+                    </ScrollView>
+                </RefreshView>
+                <!--Signout Button-->
+                <Frame Grid.Row="2" x:Name="StartNewCampBtn" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"   VerticalOptions="EndAndExpand" Opacity="1.0" IsVisible="{Binding StartNewCampBtn}" Padding="20">
+                    <Label Text="Start New Campaign"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="StartNewCampClicked"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <ImageButton x:Name="AddCampaignBtn" Clicked="StartNewCampClicked" Grid.Row="0" Grid.RowSpan="2" Source="Plus_Button" HeightRequest="100" WidthRequest="100" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" IsVisible="{Binding AddNewCampBtn}" BackgroundColor="Transparent" />
+
+            </Grid>
+            <Popups:GetheringData x:Name="GethringLoader" IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <WCPopups:OnboardingPopup x:Name="WelcomeScreen" IsVisible="{Binding WelcomeViewVisible}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <!--<Popups:LoaderView x:Name="Loader" LoadderText="Working on it.." IsVisible="{Binding IsTapped}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

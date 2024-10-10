@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.NoGoogleAdAccView"
+              NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             ios:Page.UseSafeArea="False">
+    <!--Page backgorund-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout x:Name="ContainerStack" VerticalOptions="FillAndExpand" Spacing="20">
+            <!--Navigation bar-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="8*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" Clicked="BackButton_Clicked"/>
+            </Grid>
+            <!--remaining Views-->
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="1" Grid.Row="0" Spacing="20">
+                    <!--Label to show there is no google Ads account-->
+                    <Label  Text="Google Ads Account"  Style="{StaticResource LabelStyle}"  TextColor="#AC47ED"  FontSize="32" FontFamily="{StaticResource BoldFont}" />
+                    <Label Margin="0,20" Text="There was no Google Ads account associated to your email account"  Style="{StaticResource LabelStyle}"  TextColor="Black"  FontSize="16" FontFamily="{StaticResource NormalFont}" />
+                    <!--option to change the google account-->
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED">
+                        <Label Text="Try Another Account"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TryAnotherAccountTapped"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <!--Option to create a new google Ads Account-->
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="15" VerticalOptions="FillAndExpand">
+                            <Image Source="Google.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" HeightRequest="18" WidthRequest="18"/>
+                            <Label Text="Create Google Ads Account"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers >
+                            <TapGestureRecognizer Tapped ="CreateGoogleAcc_Tapped" NumberOfTapsRequired="1"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!--Skip Option-->
+                    <Label Text="Skip for now"  Style="{StaticResource LabelStyle}"  TextColor="#AC47ED"  FontSize="18" FontFamily="{StaticResource BoldFont}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SkipNowTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>  
+            </Grid>
+
+        </StackLayout>
+        <!--Loader-->
+        <Popups:LoaderView IsVisible="false"  x:Name="GoLoginLoader" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             x:Class="OneTapMobile.Views.CampaignOverviewView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             ios:Page.UseSafeArea="False">
+    <!--xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             x:DataType="viewmodels:CampaignOverviewViewModel"-->
+    <!--Page background-->
+    <!--<ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>-->
+    <!--Page Views-->
+    <ContentPage.Content>
+        <!--<Grid BackgroundColor="#FFEEC1" Margin="0" Padding="0">-->
+        <Grid BackgroundColor="#FFFFFF" Margin="0" Padding="0">
+            <Grid Margin="{Binding SafeAreaSpacing}" RowDefinitions="40,Auto,Auto" >
+            <Grid Grid.Row="0" Margin="5,0" ColumnDefinitions="1*,8*,1*" RowDefinitions="40">
+                <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding PageTitleTxt, Mode=TwoWay}" TextColor="Black" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="20"/>
+                <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="End" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+            </Grid>
+                <ScrollView Grid.Row="1" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                    <Grid>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                            <Frame Grid.Row="1" Padding="0" Margin="0" BackgroundColor="Transparent" CornerRadius="10" HasShadow="False" IsClippedToBounds="True">
+                                <Grid x:Name="TopContainer" RowDefinitions="*,Auto" RowSpacing="0" ColumnSpacing="0" Padding="0">
+
+                                    <Image x:Name="WallImage" Grid.Row="0" Grid.RowSpan="2" Source="{Binding CampaignWall, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill" HeightRequest="120"/>
+
+                                    <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="2*,5*,3*"  ColumnSpacing="20" RowSpacing="0" Margin="0,5" BackgroundColor="#11010101">
+
+                                        <Frame Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"  Padding="0" Margin="0,0,0,0" CornerRadius="90" HeightRequest="35" WidthRequest="35" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" IsClippedToBounds="True">
+                                            <Image  Aspect="AspectFit" Source="{Binding ThumbNailImage}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                                        </Frame>
+
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CampaignName}" LineBreakMode="MiddleTruncation" FontAttributes="Bold" TextColor="White" FontSize="13" Margin="-15,0" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand"/>
+
+                                        <Image Source="{Binding CampTypeIcon , Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="StartAndExpand" Margin="-15,0" HeightRequest="10" WidthRequest="10"/>
+
+                                        <Label Grid.Row="2"  Grid.Column="1" Text="{Binding CreatedTime}" Padding="0" TextColor="White" FontSize="12" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
+
+                                    </Grid>
+
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+                                            <GradientStop Color="#A235E5"
+                          Offset="0.0"/>
+                                            <GradientStop Color="#6522A8"
+                          Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                </Grid>
+                            </Frame>
+                            <Grid Grid.Row="3" Margin="0,-15,0,0" RowDefinitions="Auto,Auto,4*,3*">
+                                <StackLayout Grid.Row="0" Spacing="4" Margin="0,5,0,0" HorizontalOptions="Start">
+                                    <Label Text="Campaign Overview" TextColor="#8826C7" HorizontalOptions="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="18"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                                    <Label Text="Status" TextColor="#8826C7"  FontFamily="{StaticResource SemiBoldFont}" FontSize="16"/>
+                                    <Switch x:Name="CampstatusSwitch"  OnColor="#c174f1" ThumbColor="#AC47ED" HorizontalOptions="Start" Toggled="CampstatusSwitch_Toggled"  IsToggled="{Binding CampStatus, Mode=TwoWay}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+                                    
+                                    <Frame  Style="{StaticResource FrameStyleWithoutHeight}" Padding="10,5" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" HasShadow="False" BackgroundColor="{Binding WeekFrameBackground , Mode=TwoWay }">
+                                        <Label Text="Week" FontSize="12" FontFamily="{StaticResource SemiBoldFont}" TextColor="#A235E5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TimePeriodCmd}" CommandParameter="Week"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+
+                                    <Frame Style="{StaticResource FrameStyleWithoutHeight}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Padding="10,5" HasShadow="False"  BackgroundColor="{Binding MonthFrameBackground ,Mode=TwoWay}">
+                                        <Label Text="Month"  FontSize="12" FontFamily="{StaticResource SemiBoldFont}" TextColor="#A235E5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TimePeriodCmd}" CommandParameter="Month"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+
+                                    <Frame Style="{StaticResource FrameStyleWithoutHeight}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Padding="10,5" HasShadow="False" BackgroundColor="{Binding YearFrameBackground ,Mode=TwoWay}">
+                                        <Label Text="Year"  FontSize="12" FontFamily="{StaticResource SemiBoldFont}" TextColor="#A235E5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TimePeriodCmd}" CommandParameter="Year"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </StackLayout>
+
+                                <!--Graph will be here-->
+                                <Grid Grid.Row="2"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                        <!--<AbsoluteLayout  x:Name="graphView" IsVisible="{Binding ShowGraph, Mode=TwoWay}" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                            <oxy:PlotView  Model="{Binding GraphModel}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional" HeightRequest="50" WidthRequest="50" BackgroundColor="White"/>
+                                        </AbsoluteLayout>-->
+                                        <!--<oxy:PlotView IsVisible="{Binding ShowGraph, Mode=TwoWay}"  Model="{Binding GraphModel}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="WidthProportional,HeightProportional" HeightRequest="150" WidthRequest="150" BackgroundColor="White"/>-->
+
+                                        <WebView x:Name="ChartWebView" IsVisible="{Binding ShowGraph, Mode=TwoWay}"  HeightRequest="{Binding ChartHeight, Mode=TwoWay}" WidthRequest="150" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+                                        <Label Text="Chart Data is not available" IsVisible="{Binding NoGrpah, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                    </Grid>
+                                    <StackLayout Grid.Row="3">
+                                    <!--<ScrollView  HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">-->
+                                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="5,0">
+                                        <Frame Style="{StaticResource FrameWhiteStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Padding="10,5" HeightRequest="40" Margin="0,5,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Grid ColumnDefinitions="8*,Auto" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Question1}" TextColor="Black"  FontFamily="{StaticResource NormalFont}"  FontSize="12" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                                <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+
+                                                    <Frame  Style="{StaticResource FrameStyleWithoutHeight}" Padding="10,5" CornerRadius="10" BackgroundColor="#F9EFFF" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                                        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="0" >
+                                                            <Label Grid.Column="0" Text="{Binding Answer1}" TextColor="#8826C7"  FontFamily="{StaticResource SemiBoldFont}"  FontSize="12" VerticalTextAlignment="Center"/>
+                                                            <Image Grid.Column="1" IsVisible="{Binding ShowAnswerIcon1 , Mode=TwoWay}" Source="{Binding AnswerIcon1}" HeightRequest="10" WidthRequest="10"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                        </Frame>
+                                        <Frame Style="{StaticResource FrameWhiteStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5"  Padding="10,5" HeightRequest="40" Margin="0,5,0,0">
+                                            <Grid ColumnDefinitions="8*,Auto" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0" Padding="0">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Question2}"  FontFamily="{StaticResource NormalFont}"  TextColor="Black" FontSize="12" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                                <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                                    <Frame  Style="{StaticResource FrameStyleWithoutHeight}" Padding="10,5" CornerRadius="10" BackgroundColor="#F9EFFF" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                                        <Grid  ColumnDefinitions="Auto,Auto" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="0">
+                                                            <Label Grid.Column="0" Text="{Binding Answer2}" TextColor="#8826C7"  FontFamily="{StaticResource SemiBoldFont}" FontSize="12" VerticalTextAlignment="Center"/>
+                                                            <Image Grid.Column="1" IsVisible="{Binding ShowAnswerIcon2 , Mode=TwoWay}" Source="{Binding AnswerIcon2}" HeightRequest="10" WidthRequest="10"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                        </Frame>
+                                        <Frame Style="{StaticResource FrameWhiteStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Padding="10,5" HeightRequest="40" Margin="0,5,0,0">
+                                            <Grid ColumnDefinitions="8*,Auto" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Question3}"  FontFamily="{StaticResource NormalFont}"  TextColor="Black" FontSize="12" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
+
+                                                <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                                    <Frame  Style="{StaticResource FrameStyleWithoutHeight}" Padding="10,5" CornerRadius="10" BackgroundColor="#F9EFFF" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                                        <Grid ColumnDefinitions="Auto,Auto" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Margin="0" Padding="0">
+                                                            <Label Grid.Column="0" Text="{Binding Answer3}" TextColor="#8826C7" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                                            <Image Grid.Column="1" IsVisible="{Binding ShowAnswerIcon3 , Mode=TwoWay}" Source="{Binding AnswerIcon3}" HeightRequest="10" WidthRequest="10" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                    <!--</ScrollView>-->
+                                </StackLayout>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Margin="0,-25,5,-30" Padding="-10,-20,0,0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <Frame  Grid.Row="1" Grid.Column="2"  HeightRequest="50" WidthRequest="50" CornerRadius="200" HasShadow="True" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Frame.IsVisible>
+                                            <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android ="True"/>
+                                        </Frame.IsVisible>
+                                    </Frame>
+                                    <Frame  Grid.Row="1" Grid.Column="2" HeightRequest="80" WidthRequest="80" CornerRadius="40" HasShadow="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+                                        <Frame.IsVisible>
+                                            <OnPlatform x:TypeArguments="x:Boolean" iOS="True" Android ="False"/>
+                                        </Frame.IsVisible>
+                                    </Frame>
+                                    <customcontrol:CircleProgress Progress="{Binding ProgressBarData,Mode=TwoWay}" Grid.Column="2" Grid.Row="1" StrokeWidth="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ProgressStartColor="#6522A8" ProgressEndColor="#B543E4" />
+                                    <StackLayout VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand"  Grid.Row="1" Grid.Column="2"  Spacing="-5" >
+                                        <Label FontAttributes="Bold" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding CampPercent , Mode=TwoWay}" TextColor="#A235E5" FontSize="16" FontAttributes="Bold" FontFamily="{StaticResource SemiBoldFont}"/>
+                                                    <Span Text="%" TextColor="#A235E5" FontSize="16" FontAttributes="Bold" FontFamily="{StaticResource NormalFont}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <!--<Label Text="Today" FontSize="12" FontAttributes="Bold" VerticalTextAlignment="Center" FontFamily="{StaticResource SemiBoldFont}" HorizontalOptions="Center" TextColor="#A235E5"/>-->
+                                    </StackLayout>
+
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollView>
+
+                <StackLayout Grid.Row="2" Spacing="5" Margin="10,0" >
+
+                    <StackLayout Orientation="Horizontal" Margin="5,0">
+                        <Label  Text="Today's Spend" TextColor="#8826C7"  VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
+                        <Label  Text="Total Spend" TextColor="#8826C7" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
+                    </StackLayout>
+                    <Frame HasShadow="False" Padding="0" BackgroundColor="Transparent">
+
+                        <Grid ColumnDefinitions="*,8*,*" RowSpacing="0" ColumnSpacing="0" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                                <customcontrol:GradientProgressBar  Grid.ColumnSpan="2" CornerRadius="40" Percentage="{Binding SpentProgress, Mode=TwoWay}" HeightRequest="35" HorizontalOptions="FillAndExpand" GradientStartColor="#860DE5" GradientEndColor="#FCCF4D" BarBackgroundColor="#890FE5" VerticalOptions="CenterAndExpand"/>
+                            </Grid>
+                            <Label  Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"  VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" TextColor="White">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="$" />
+                                        <Span Text="{Binding TodaysSpent}"/>
+                                        <!--<Span Text=" Today" TextColor="#ECCFFF"/>-->
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" VerticalTextAlignment="Center" HorizontalTextAlignment="End" TextColor="White">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="$"/>
+                                        <Span Text="{Binding TotalSpent}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </Frame>
+
+                </StackLayout>
+
+
+            </Grid>
+        <Popups:LoaderView IsVisible="{Binding IsBusy}" LoadderText="Loading Data.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

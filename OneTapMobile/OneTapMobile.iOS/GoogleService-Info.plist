@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>CLIENT_ID</key>
+		<string>164914814140-23uj8vaeitkef91g1p92rr39od6as8nt.apps.googleusercontent.com</string>
+		<key>REVERSED_CLIENT_ID</key>
+		<string>com.googleusercontent.apps.164914814140-23uj8vaeitkef91g1p92rr39od6as8nt</string>
+		<key>ANDROID_CLIENT_ID</key>
+		<string>164914814140-4dn8u19gvcc0vocqbv75947d9m6tbgl0.apps.googleusercontent.com</string>
+		<key>API_KEY</key>
+		<string>AIzaSyCKPa8ZDe8q7Yg1qoc_-Zpc_bsLDoupdA8</string>
+		<key>GCM_SENDER_ID</key>
+		<string>164914814140</string>
+		<key>PLIST_VERSION</key>
+		<string>1</string>
+		<key>BUNDLE_ID</key>
+		<string>com.onetapsocial.onetap</string>
+		<key>PROJECT_ID</key>
+		<string>onetapsocial-591ea</string>
+		<key>STORAGE_BUCKET</key>
+		<string>onetapsocial-591ea.appspot.com</string>
+		<key>IS_ADS_ENABLED</key>
+		<false></false>
+		<key>IS_ANALYTICS_ENABLED</key>
+		<false></false>
+		<key>IS_APPINVITE_ENABLED</key>
+		<true></true>
+		<key>IS_GCM_ENABLED</key>
+		<true></true>
+		<key>IS_SIGNIN_ENABLED</key>
+		<true></true>
+		<key>GOOGLE_APP_ID</key>
+		<string>1:164914814140:ios:6c5f1d13f97ccda1cbc4b9</string>
+	</dict>
+</plist>

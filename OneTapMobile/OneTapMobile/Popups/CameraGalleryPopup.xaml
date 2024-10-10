@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="OneTapMobile.Popups.CameraGalleryPopup"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 CloseWhenBackgroundIsClicked="False"
+                 NavigationPage.HasNavigationBar="False">
+
+    <Frame x:Name="CameraGalleryPopupStack" Padding="20" Margin="20" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" CornerRadius="15">
+        <Frame.Background>
+            <LinearGradientBrush EndPoint="0,0">
+                <GradientStop x:Name="PopupBgColor1" Color="#6D25AE"
+                          Offset="0.0" />
+                <GradientStop x:Name="PopupBgColor2" Color="#9134C9"
+                          Offset="1.0" />
+            </LinearGradientBrush>
+        </Frame.Background>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <!-- <StackLayout x:Name="HeaderStackLayout" BackgroundColor="{Binding ThemeColor}" Orientation="Horizontal"  VerticalOptions="Fill" HorizontalOptions="Fill" HeightRequest="40" >
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0">
+                    <Image Source="WhiteCross.png" VerticalOptions="Center" HorizontalOptions="Start" Aspect="Fill" WidthRequest="14" HeightRequest="14"/>
+                    <Label x:Name="CancelLabel" Text="Remove" FontSize="14" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="CancelTGR" Tapped="PopupCancelCommand" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </StackLayout>-->
+                <Grid  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout  Orientation="Vertical" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                        <Frame HasShadow="False" WidthRequest="40" HeightRequest="40"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="20" Margin="0" Padding="0">
+                            <Image  Source="Camera.png" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  WidthRequest="20" HeightRequest="20"/>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer  Tapped="CameraCommand"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Label Text="Open Camera" FontSize="12" FontAttributes="Bold" TextColor="#FFFFFF" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  />
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                        <Frame HasShadow="False" WidthRequest="40" HeightRequest="40"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="20" Margin="0" Padding="0" >
+                            <Image  Source="Gallery.png" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  WidthRequest="20" HeightRequest="20"/>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer  Tapped="GalleryCommand"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Label Text="Open Gallery" FontSize="12" FontAttributes="Bold" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  />
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+    </Frame>
+</pages:PopupPage>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+              xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+             x:Class="OneTapMobile.CustomControl.CustomVideoPlayerView">
+  <ContentView.Content>
+        <!--<Grid BackgroundColor="Black">
+            --><!--<xct:MediaElement x:Name="mediaPlayer"  HeightRequest="200" WidthRequest="300" MediaOpened="mediaPlayer_MediaOpened" MediaEnded="mediaPlayer_MediaEnded" MediaFailed="mediaPlayer_MediaFailed"
+                      ShowsPlaybackControls="True"  AutoPlay="False" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                       />-->
+            <!--<ffimageloading:SvgCachedImage x:Name="loader" IsVisible="false"  HeightRequest="100" WidthRequest="100" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Source="Loader" Margin="0"/>--><!--
+        </Grid>-->
+        <Grid RowDefinitions="200">
+            <!--<customcontrol:CustomVideoPlayerView x:Name="videoView" IsPause="True"  BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>-->
+            <shared:VideoView x:Name="VideoView" Grid.Row="0" HeightRequest="200" WidthRequest="400">
+                <shared:VideoView.MediaPlayer />
+            </shared:VideoView>
+            <StackLayout x:Name="PlayPauseBtnContainer" IsVisible="true" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Button  x:Name="playPauseButton" Text="Play" Clicked="Button_Clicked" BackgroundColor="#AC47ED" CornerRadius="15" TextColor="White" FontAttributes="Bold" Padding="0" HeightRequest="30" FontSize="8" WidthRequest="70"></Button>
+            </StackLayout>
+            <ActivityIndicator x:Name="VideoLoader"  Grid.Row="0" Color="White" IsVisible="false"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ShowHidePlayButton"/>
+            </Grid.GestureRecognizers>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

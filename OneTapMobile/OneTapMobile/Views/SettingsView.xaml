@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:OneTapMobile.Converters" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels"
+             x:DataType="viewmodels:SettingsViewModel"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="OneTapMobile.Views.SettingsView"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="false">
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Used Converters-->
+    <ContentPage.Resources>
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+        <converter:EmailToBoolConverter x:Key="EmailTextChecked"/>
+        <converter:LengthConverter x:Key="TextLengthCounter"/>
+    </ContentPage.Resources>
+    <!--Page views-->
+    <ContentPage.Content>
+
+        <Grid  VerticalOptions="FillAndExpand">
+
+            <StackLayout Margin="{Binding SafeAreaSpacing}">
+                <!--Navigation Bar-->
+                <Grid HeightRequest="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="8*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <Label Grid.Column="1" Grid.Row="0"  Text="Settings" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+                </Grid>
+                <!--Remaining Views-->
+                <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                    <StackLayout Margin="0,20" VerticalOptions="StartAndExpand" Spacing="20">
+                        <!--Account option-->
+                        <StackLayout>
+                            <customcontrol:GradientLabel  TextColor1="#6C25AE" TextColor2="#B141E1" FontSize="20" Text="Account"  FontFamily="{StaticResource BoldFont}" Margin="0" >
+                                <customcontrol:GradientLabel.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                                </customcontrol:GradientLabel.IsVisible>
+                            </customcontrol:GradientLabel>
+                            <Label TextColor="#6C25AE" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" Text="Account"  Grid.Row="0" Grid.Column="1" FontSize="20"  FontFamily="{StaticResource BoldFont}" Margin="0">
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                                </Label.IsVisible>
+                            </Label>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0,5,5" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Source="MailIcon" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Grid.Row="0" Grid.Column="1"  Text="Email"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}" />
+                                    <Label Grid.Row="0" Grid.Column="2"  Text="{Binding EmailId, Mode=TwoWay}"  VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" TextColor="#1C1C1C" FontSize="14" FontFamily="{StaticResource NormalFont}" LineBreakMode="WordWrap" />
+                                </Grid>
+                            </Frame>
+
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0,5,5" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0"  Source="Key" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Grid.Row="0" Grid.Column="1"  Text="Change Password"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                    <Label Grid.Row="0" Grid.Column="2"  Text="••••••••" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" TextColor="#1C1C1C" FontSize="18" FontFamily="{StaticResource NormalFont}" />
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangePasswordTapped}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0"  Source="DeleteUser" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="20" WidthRequest="20"/>
+                                    <Label Grid.Row="0" Grid.Column="1"  Text="Delete Account"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DeleteUserTapped}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+
+
+                        </StackLayout>
+                        <!--Preferences Options-->
+                        <StackLayout>
+                            <customcontrol:GradientLabel  TextColor1="#6C25AE" TextColor2="#B141E1" FontSize="20" Text="Preferences"  FontFamily="{StaticResource BoldFont}" Margin="0" >
+                                <customcontrol:GradientLabel.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                                </customcontrol:GradientLabel.IsVisible>
+                            </customcontrol:GradientLabel>
+                            <Label TextColor="#6C25AE" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" Text="Preferences"  Grid.Row="0" Grid.Column="1" FontSize="20"  FontFamily="{StaticResource BoldFont}" Margin="0">
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                                </Label.IsVisible>
+                            </Label>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Push Notifications"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                    <Switch x:Name="PushButtonSwitch" Grid.Column="1"  OnColor="#AC47ED" ThumbColor="#AC47ED" HorizontalOptions="EndAndExpand" Toggled="PushSwitch_Toggled" />
+                                </Grid>
+                            </Frame>
+
+                            <!--<Frame Style="{StaticResource FrameStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Subscribe to Newsletter"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                    <Switch x:Name="NewsLetterSwitch" Grid.Column="1" OnColor="#AC47ED" ThumbColor="#AC47ED" HorizontalOptions="EndAndExpand" Toggled="PushSwitch_Toggled"/>
+                                </Grid>
+                            </Frame>-->
+                        </StackLayout>
+
+                        <!-- About Us Section-->
+                        <StackLayout Spacing="10">
+                            <customcontrol:GradientLabel  TextColor1="#6C25AE" TextColor2="#B141E1" FontSize="20" Text="About Us"  FontFamily="{StaticResource BoldFont}" Margin="0" >
+                                <customcontrol:GradientLabel.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                                </customcontrol:GradientLabel.IsVisible>
+                            </customcontrol:GradientLabel>
+                            <Label TextColor="#6C25AE" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" Text="About Us"  Grid.Row="0" Grid.Column="1" FontSize="20"  FontFamily="{StaticResource BoldFont}" Margin="0">
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"  iOS="False" Android="True"/>
+                                </Label.IsVisible>
+                            </Label>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Terms And Conditions"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutUsCommand}" CommandParameter="0"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Disclaimer"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutUsCommand}" CommandParameter="1"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Privacy Notice"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutUsCommand}" CommandParameter="2"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Style="{StaticResource FrameWhiteStyle}" Margin="5,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="End User License Agreement"  TextColor="#000000" FontSize="14" FontFamily="{StaticResource SemiBoldFont}"/>
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutUsCommand}" CommandParameter="3"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                        <!--Logout Button-->
+                    </StackLayout>
+                </ScrollView>
+                <Frame x:Name="btnSignOut" Grid.Row="5" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="0,0" VerticalOptions="End" Opacity="1.0" IsEnabled="True" >
+                    <Label Text="Log Out"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SignOut_Tapped"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </StackLayout>
+            <!--Loaders-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

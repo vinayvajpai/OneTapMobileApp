@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.AI.TapAndFillView"
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             ios:Page.UseSafeArea="false">
+    <ContentPage.Background>       
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>-->
+                
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+
+                <ScrollView  Padding="10,5" VerticalScrollBarVisibility="Never" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <StackLayout VerticalOptions="Start" HorizontalOptions="StartAndExpand">
+                            <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Tap and Fill" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="0,0">
+                                <customcontrol:GradientLabel.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                                </customcontrol:GradientLabel.IsVisible>
+                            </customcontrol:GradientLabel>
+                            <Label   TextColor="#862FC1" FontSize="28" Text="Tap and Fill" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="0,0" >
+                                <Label.IsVisible>
+                                    <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                                </Label.IsVisible>
+                            </Label>
+                        </StackLayout>
+
+                        <Label Text="Answer the questions below and watch AI generate your ad copy in seconds."  MaxLines="3" Style="{StaticResource RegularTextStyle}"  Margin="0,10" />
+
+                        <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="15">
+
+                            <!--<Label Text="Answer the questions below and watch AI generate your ad copy in seconds."  MaxLines="3" Style="{StaticResource RegularTextStyle}"/>-->
+
+                            <!--company name-->
+                            <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Spacing="10">
+
+                                <Label Text="What is the name of your company?" Style="{StaticResource SemiBoldTextStyle}"/>
+
+                                <Frame Style="{StaticResource FrameStyle}" Margin="0,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                    <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <customcontrol:CustomEntry x:Name="CompanyNameTxt"  Text="{Binding CompanyNameTxt,Mode=TwoWay}"  Placeholder="e.g. Iron Gym" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Completed="CompanyNameTxt_Completed"/>
+                                    </StackLayout>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CompanyNameTxt}, Path=IsFocused}" Value="false" >
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CompanyNameTxt}, Path=IsFocused}" Value="True" >
+                                            <Setter Property="BorderColor" Value="#AC47ED"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                </Frame>
+
+                                <FlexLayout x:Name="CompanyNameFlex"  Wrap="Wrap"  JustifyContent="Start"  IsVisible="true" ChildRemoved="CompanyNameFlex_ChildRemoved"/>
+
+                            </StackLayout>
+
+                            <!--trying to reach-->
+                            <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Spacing="10">
+                                <StackLayout Spacing="2">
+                                    <Label Text="Who are you trying to reach?" Style="{StaticResource SemiBoldTextStyle}"/>
+                                    <Label Text="Describe your customers." Style="{StaticResource RegularTextStyle}"/>
+                                </StackLayout>
+                                <Frame Style="{StaticResource FrameStyle}" Margin="0,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                    <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <customcontrol:CustomEntry x:Name="WhoToReachTxt"  Text="{Binding WhoToReachTxt,Mode=TwoWay}"  Placeholder="e.g. Gym Beginners" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Completed="WhoToReachTxt_Completed"/>
+                                    </StackLayout>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference WhoToReachTxt}, Path=IsFocused}" Value="false" >
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference WhoToReachTxt}, Path=IsFocused}" Value="True" >
+                                            <Setter Property="BorderColor" Value="#AC47ED"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                </Frame>
+
+                                <FlexLayout x:Name="WhoToReachFlex"  Wrap="Wrap"  JustifyContent="Start"  IsVisible="true" ChildRemoved="WhoToReachFlex_ChildRemoved"/>
+
+                            </StackLayout>
+
+                            <!--company good at-->
+                            <StackLayout VerticalOptions="Start" HorizontalOptions="FillAndExpand" Spacing="10">
+
+                                <StackLayout Spacing="2">
+                                    <Label Text="What is your company good at?" Style="{StaticResource SemiBoldTextStyle}"/>
+                                    <Label Text="List your offers, services and results." Style="{StaticResource RegularTextStyle}"/>
+                                </StackLayout>
+
+                                <Frame Style="{StaticResource FrameStyle}" Margin="0,0" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5">
+                                    <StackLayout Orientation="Horizontal" Margin="-10,-15" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <customcontrol:CustomEntry x:Name="CompanyGoodAtTxt"  Text="{Binding CompanyGoodAtTxt,Mode=TwoWay}"  Placeholder="e.g. 1 week off on signup" TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Keyboard="Text" FontFamily="{StaticResource NormalFont}" Completed="CompanyGoodAtFlext_Completed"/>
+                                    </StackLayout>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CompanyGoodAtTxt}, Path=IsFocused}" Value="false" >
+                                            <Setter Property="BorderColor" Value="Transparent"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame"  Binding="{Binding Source={x:Reference CompanyGoodAtTxt}, Path=IsFocused}" Value="True" >
+                                            <Setter Property="BorderColor" Value="#AC47ED"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                </Frame>
+
+                                <FlexLayout x:Name="CompanyGoodAtFlex"  Wrap="Wrap"  JustifyContent="Start"  IsVisible="true" ChildRemoved="CompanyGoodAtFlex_ChildRemoved"/>
+
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+                <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Margin="10,0">
+                    <Frame x:Name="ContinueFrame" Style="{StaticResource FrameStyle}" BorderColor="#BE7CE9" BackgroundColor="#BE7CE9"  IsEnabled="False" Opacity="0.8">
+                        <Label Text="Generate ad" x:Name="GenerateAdTxt"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Opacity="0.5" TextColor="#FFFFFF" FontSize="16" FontFamily="{StaticResource SemiBoldFont}">
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GenerateAdCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
+
+                <!--<Label Margin="0,10" Padding="0" Text="Regenerate Ad" TextDecorations="Underline" TextColor="#AC47ED" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="RegenerateAd_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>-->
+                
+
+            </StackLayout>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

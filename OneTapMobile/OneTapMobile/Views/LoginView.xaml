@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.LoginView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             x:DataType="viewmodels:LoginViewModel"
+             ios:Page.UseSafeArea="false">
+    <!--Page Background-->
+    <!--<ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>-->
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                    <!--Top backgorund-->
+                    <Image  Source="bg.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="Fill"/>
+                    <Grid  Grid.Row="0"  RowDefinitions="2*,6*,2*" ColumnDefinitions="2*,6*,2*" BackgroundColor="#FFFFFF">
+                        <Image Source="AppIcon.png" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                   
+                </Grid>
+                <StackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                    <!--Sign In with Google-->
+                    <Frame x:Name="GoogleButton" Style="{StaticResource FrameStyle}"  IsEnabled="{Binding IsEnable, Mode=TwoWay}">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="15" VerticalOptions="CenterAndExpand">
+                            <Image Source="Google.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+                            <Label Text="Sign in with Google"  Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignInWithGoogleCmd}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <!--Sign In With Facebook-->
+                    <Frame x:Name="FBButton" Style="{StaticResource FrameStyle}" BackgroundColor="#4267B2" BorderColor="Transparent" IsEnabled="{Binding IsEnable, Mode=TwoWay}">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="15" VerticalOptions="CenterAndExpand" >
+                            <Image Source="FBIconWhite.png" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label Text="Sign in with Facebook" Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" FontSize="16" FontFamily="{StaticResource SemiBoldFont}" />
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignInWithFBCmd}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame> 
+                    <!--Sign In With Apple-->
+                    <Frame x:Name="AppleButton" Style="{StaticResource FrameWhiteStyle}" BackgroundColor="#000000" IsVisible="{Binding ButtonVisible, Mode=TwoWay}" IsEnabled="{Binding IsEnable, Mode=TwoWay}">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="15" VerticalOptions="CenterAndExpand" >
+                            <Image Source="AppleIcon.png"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                            <Label Text="Sign in with Apple" Style="{StaticResource LabelStyle}"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignInWithAppleCommand}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <!--Sign In with Email-->
+                    <Frame x:Name="EmailButton" Style="{StaticResource FrameStyle}" IsEnabled="{Binding IsEnable, Mode=TwoWay}">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="15" VerticalOptions="CenterAndExpand" >
+                            <Image Source="envelope.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
+                            <Label Text="Sign in with Email" Style="{StaticResource LabelStyle}" HorizontalOptions="CenterAndExpand" TextColor="Black" FontSize="16" FontFamily="{StaticResource SemiBoldFont}" />
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignInWithEmailCmd}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
+                <!--Loader-->
+                <Popups:LoaderView IsVisible="{Binding IsBusy}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" LoadderText="{Binding LoaderText}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

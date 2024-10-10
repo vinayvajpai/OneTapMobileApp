@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Opacity="0.9"
+             x:Class="OneTapMobile.Popups.LoaderView"
+             ios:Page.UseSafeArea="true"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             NavigationPage.HasNavigationBar="False">
+    <!--Page Backgorund-->
+    <ContentView.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#A23DEA"  Offset="0.0"/>
+            <GradientStop Color="#6132C1" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentView.Background>
+    <!--Page Content-->
+    <ContentView.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="10">
+                <ffimageloading:SvgCachedImage   HeightRequest="100" WidthRequest="100" VerticalOptions="FillAndExpand" Aspect="AspectFit" Source="Loader" Margin="0"/>
+                <Label x:Name="LoaderTxt" Text="" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="20" FontFamily="{StaticResource SemiBoldFont}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

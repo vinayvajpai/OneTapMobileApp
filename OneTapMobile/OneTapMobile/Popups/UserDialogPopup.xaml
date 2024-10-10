@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="OneTapMobile.Popups.UserDialogPopup"
+                 CloseWhenBackgroundIsClicked="False"
+                 NavigationPage.HasNavigationBar="False">
+
+    <Frame VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Margin="20,0" CornerRadius="15" Padding="20,10" >
+        <!--Popup Backgorund-->
+        <Frame.Background>
+            <LinearGradientBrush EndPoint="0,0">
+                <GradientStop x:Name="PopupBgColor1" Color="#6D25AE"
+                          Offset="0.0" />
+                <GradientStop x:Name="PopupBgColor2" Color="#9134C9"
+                          Offset="1.0" />
+            </LinearGradientBrush>
+        </Frame.Background>
+        <!--Page Content-->
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" Spacing="10">
+            <!--title-->
+            <Label x:Name="Heading" Text="Message" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="White" FontAttributes="Bold" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
+            <!--horizontal gradient rule-->
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <Frame VerticalOptions="CenterAndExpand" HasShadow="False" HorizontalOptions="FillAndExpand" Margin="0,10" CornerRadius="15" Padding="2">
+                    <Frame.Background>
+                        <LinearGradientBrush EndPoint="0,0">
+                            <GradientStop Color="#B63FFF"
+                          Offset="0.0" />
+                            <GradientStop Color="#FFC85C"
+                          Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                </Frame>
+            </StackLayout>
+            <!--popup detail message-->
+            <Label x:Name="Detail" Text="Something Went Wrong" TextColor="White" LineBreakMode="WordWrap" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"  FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+            <!--ok and cancel button-->
+            <Grid x:Name="OkCancelBtnGroup"  HeightRequest="45" ColumnSpacing="20" HorizontalOptions="FillAndExpand" Margin="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Frame x:Name="LeftButton" IsVisible="true" HasShadow="False" Grid.Column="0"  Grid.ColumnSpan="1"  BackgroundColor="#FFC85C" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="5" Padding="5">
+                    <Label x:Name="btnCancel" Text="Cancel" Opacity="0.5"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="#1a0033" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CancelButtonPressed"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame x:Name="RightButton" IsVisible="true" HasShadow="False" Grid.Column="1" Grid.ColumnSpan="1"  BackgroundColor="#FFC85C" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="5" Padding="5">
+                    <Label x:Name="btnOKAY" Text="Ok" Opacity="0.5"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="#1a0033" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OkButtonPressed" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </Grid>
+        </StackLayout>
+    </Frame>
+</pages:PopupPage>

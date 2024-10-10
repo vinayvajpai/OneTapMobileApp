@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups"
+             x:Class="OneTapMobile.Views.UploadImageView"
+             ios:Page.UseSafeArea="false"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             NavigationPage.HasNavigationBar="False">
+    <!--Page Background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid x:Name="ContainerGrid" VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+                <customcontrol:GradientLabel  TextColor1="#6522A8" TextColor2="#AC47ED" Grid.Row="1" FontSize="28" Text="Upload Image" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                    <customcontrol:GradientLabel.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                    </customcontrol:GradientLabel.IsVisible>
+                </customcontrol:GradientLabel>
+                <Label   TextColor="#862FC1"  Grid.Row="1" FontSize="28" Text="Upload Image" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                    </Label.IsVisible>
+                </Label>
+                <!--Instruction-->
+                <StackLayout Grid.Row="2" Spacing="10">
+                    <Label Text="Upload an image from your phone. Allow permissions for OneTap to access your image." FontSize="16" FontFamily="{StaticResource NormalFont}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" TextColor="#1C1C1C" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand" Margin="10"/>
+                    <Image Source="upload" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="10"/>
+                </StackLayout>
+                <Frame Grid.Row="3" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED" HorizontalOptions="FillAndExpand"  Margin="10" VerticalOptions="EndAndExpand" Opacity="1.0" IsEnabled="True" Padding="20">
+                    <Label Text="Select Image"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UploadImageClicked}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="false" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

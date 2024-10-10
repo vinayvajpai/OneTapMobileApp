@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OneTapMobile": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

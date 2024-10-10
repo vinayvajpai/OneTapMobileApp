@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<string name="ApplicationName">OneTap Social</string>
+	<string name="facebook_app_id">
+		578177173616840
+	</string>
+	<string name="fb_login_protocol_scheme">
+		fb578177173616840
+	</string>
+	<string name="facebook_client_token">bfa58aa7d732e168c82d6e556531c83c</string>
+</resources>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="false"
+             x:Class="OneTapMobile.Views.EditImageView">
+ <ContentPage.Background>
+            <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+                <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+                <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+            </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+        <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+                <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand">
+                <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Edit Your Image" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0">
+                    <customcontrol:GradientLabel.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                    </customcontrol:GradientLabel.IsVisible>
+                </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1" FontSize="28" Text="Edit Your Image" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0" >
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                    </Label.IsVisible>
+                </Label>
+
+                <!--lable text-->
+                <Label   TextColor="#1C1C1C" FontSize="14" Text="Crop your image for the right size" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource NormalFont}" VerticalOptions="FillAndExpand" Margin="10,0,10,10"/>
+                </StackLayout>
+                <!--Image view-->
+                
+                <Frame Grid.Row="2" VerticalOptions="CenterAndExpand" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" HasShadow="False" Padding="0" Margin="0,10,0,0">
+                    <!--<Image x:Name="Selected_Image" Source="ImageEmpty"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+                    <StackLayout>
+                        <Grid>
+                        <!--<ffimageloading:CachedImage Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="Selectedimage" HeightRequest="200" WidthRequest="200"
+                    Aspect="AspectFit" Source="{Binding CroppedImage, Mode=TwoWay}"
+                    Transformations="{Binding Transformations,Mode=TwoWay}" CacheDuration="0" DownsampleToViewSize="True" LoadingPlaceholder="upload" >-->
+
+                            <Image Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="Selectedimage" HeightRequest="200" WidthRequest="200"
+                    Aspect="AspectFit" Source="{Binding CroppedImage, Mode=TwoWay}" >
+
+
+                                <!--<ffimageloading:CachedImage.GestureRecognizers>
+                                <PinchGestureRecognizer PinchUpdated="OnPinchUpdated" />
+                                <PanGestureRecognizer PanUpdated="OnPanUpdated" />
+                            </ffimageloading:CachedImage.GestureRecognizers>-->
+                        </Image>
+                            <ActivityIndicator Grid.Row="0" x:Name="ActivityIndicator" Color="White" BindingContext="{x:Reference Selectedimage}"  IsRunning="{Binding IsLoading}"  IsVisible="{Binding IsLoading}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                        </Grid>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ViewImageCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <StackLayout Grid.Row="3" Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#BE7CE9" Opacity="0.8" IsEnabled="False"  Margin="10" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="12" Padding="15">
+                        <Label Text="Square"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}">
+                            <Label.Triggers>
+                                <MultiTrigger TargetType="Label">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </MultiTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CropSquare_Tapped" />
+                        </Frame.GestureRecognizers>
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                                <Setter Property="BackgroundColor" Value="#AC47ED" />
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#BE7CE9" Opacity="0.8" IsEnabled="False"  Margin="10" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="12" Padding="15">
+                        <Label Text="16:9"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                        </Label>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer  Tapped="Btn16X9_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Frame.Triggers>
+                            <MultiTrigger TargetType="Frame">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                                <Setter Property="BackgroundColor" Value="#AC47ED" />
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </MultiTrigger>
+                        </Frame.Triggers>
+                    </Frame>
+                </StackLayout>
+
+                <Frame Grid.Row="4" Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" CornerRadius="12" Padding="15">
+                    <Label Text="Change Image"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="#AC47ED" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                </Frame.GestureRecognizers>
+                </Frame>
+
+
+                <!--Next Button Leads to facebook categories Option-->
+                <Frame Grid.Row="5" Style="{StaticResource FrameStyle}" BackgroundColor="#BE7CE9" HorizontalOptions="FillAndExpand"  Margin="10" VerticalOptions="EndAndExpand" Opacity="0.8" IsEnabled="False" Padding="20">
+                    <Label Text="Continue"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}">
+                        <Label.Triggers>
+                            <MultiTrigger TargetType="Label">
+                                <MultiTrigger.Conditions>
+                                    <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Opacity" Value="1.0"/>
+                            </MultiTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ContinueBtnCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Frame.Triggers>
+                        <MultiTrigger TargetType="Frame">
+                            <MultiTrigger.Conditions>
+                                <BindingCondition Binding="{Binding Source={x:Reference ActivityIndicator}, Path=IsVisible}" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                            <Setter Property="BackgroundColor" Value="#AC47ED" />
+                            <Setter Property="Opacity" Value="1.0"/>
+                        </MultiTrigger>
+                    </Frame.Triggers>
+                </Frame>
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

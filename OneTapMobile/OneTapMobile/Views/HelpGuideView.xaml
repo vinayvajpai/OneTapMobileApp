@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.HelpGuideView"
+             ios:Page.UseSafeArea="false"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Margin="{Binding SafeAreaSpacing}">
+                <Grid Grid.Row="0" Margin="5,0" ColumnDefinitions="1*,8*,1*" RowDefinitions="30">
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <Label Grid.Column="1" IsVisible="false" Grid.Row="0" Text="Help Guide" FontSize="20" FontAttributes="Bold" TextColor="Black" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                </Grid>
+            </StackLayout>
+            <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <WebView x:Name="WebPageView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0" Navigated="OnNavigated" Navigating="OnNavigating" xct:CornerRadiusEffect.CornerRadius="10"/>
+                <ActivityIndicator x:Name="activity_indicator" IsVisible="true" IsRunning="true" Color="#AC47ED" BindingContext="{x:Reference WebPageView}" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Grid>
+            <!--<Frame CornerRadius="10" Padding="0" BackgroundColor="Transparent" HasShadow="False">
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextType="Html" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Text="&lt;p style='margin-left:8px'&gt;&lt;span style='font-size:medium'&gt;&lt;span style='color:#000000'&gt;&lt;span style='font-family:&quot;Times New Roman&quot;'&gt;&lt;span style='font-size:11pt'&gt;&lt;span style='font-family:Arial,sans-serif'&gt;&lt;span style='font-size:10pt'&gt;For more information, please reach out to us at &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style='font-family:&quot;Times New Roman&quot;'&gt;&lt;span style='font-size:11pt'&gt;&lt;span style='font-family:Arial,sans-serif'&gt;&lt;span style='font-size:9pt'&gt;&lt;a href='mailto:info@onetapsocial.com'&gt;&lt;span style='color:#9b59b6'&gt;&lt;strong&gt;&lt;span style='font-size:10pt'&gt;info@onetapsocial.com&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;span style='color:#000000'&gt;&lt;span style='font-size:10pt'&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;" FontAttributes="Bold" FontSize="15" TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendContactUsEmail}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Frame>-->
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

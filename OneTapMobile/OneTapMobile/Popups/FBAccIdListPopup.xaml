@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="OneTapMobile.Popups.FBAccIdListPopup"
+                 CloseWhenBackgroundIsClicked="False"
+                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                 NavigationPage.HasNavigationBar="False">
+
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#A0808080">
+        <Frame VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" CornerRadius="15" Padding="20,10" Margin="10,50">
+            <!--Popup Backgorund-->
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="0,0">
+                    <!--<GradientStop x:Name="PopupBgColor1" Color="#6D25AE"
+                          Offset="0.0" />
+                    <GradientStop x:Name="PopupBgColor2" Color="#9134C9"
+                          Offset="1.0" />-->
+                     <GradientStop x:Name="PopupBgColor1" Color="#FFFFFF"
+                          Offset="0.0" />
+                    <GradientStop x:Name="PopupBgColor2" Color="#FFFFFF"
+                          Offset="1.0" />
+                </LinearGradientBrush>
+            </Frame.Background>
+            <!--Page Content-->
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                <!--title-->
+                <Label x:Name="Heading" Text="Select Facebook Ad Account " VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" TextColor="Black" FontAttributes="Bold" FontSize="20" FontFamily="{StaticResource BoldFont}"/>
+                <!--horizontal gradient rule-->
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                    <Frame VerticalOptions="CenterAndExpand" HasShadow="False" HorizontalOptions="FillAndExpand" Margin="0,10" CornerRadius="15" Padding="2">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="0,0">
+                                <GradientStop Color="#B63FFF"
+                          Offset="0.0" />
+                                <GradientStop Color="#FFC85C"
+                          Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                    </Frame>
+                </StackLayout>
+                <!--popup detail message-->
+                <ListView x:Name="DataList" SelectedItem="{Binding  SelectedAccount, Mode=TwoWay}" ItemsSource="{Binding AdAccountsList, Mode=TwoWay}" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" SeparatorVisibility="None"  HorizontalScrollBarVisibility="Always" BackgroundColor="Transparent" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame x:Name="frm1"  Style="{StaticResource FrameWhiteStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Margin="5,5" CornerRadius="10" BackgroundColor="White" VerticalOptions="FillAndExpand"  Padding="10" HeightRequest="40">
+                                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackLayout Grid.Column="0" HorizontalOptions="StartAndExpand" VerticalOptions="Center" Spacing="0">
+                                            <Label Text="{Binding name, Mode=TwoWay}"  HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="Black" FontSize="12" FontFamily="{StaticResource SemiBoldFont}" MaxLines="2" LineBreakMode="TailTruncation"/>
+                                        </StackLayout>
+                                        <Label Grid.Column="1" Text="{Binding account_id, Mode=TwoWay}" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  TextColor="Gray" FontSize="12" FontFamily="{StaticResource SemiBoldFont}"/>
+                                        <Image Grid.Column="2" Source="{Binding Tick, Mode=TwoWay}"  HeightRequest="25" WidthRequest="25"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!--ok and cancel button-->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <Frame Grid.Row="0" Grid.Column="0" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="5,0" VerticalOptions="FillAndExpand"  Padding="0">
+                        <Label Text="Cancel"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CancelCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="1" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="5,0" VerticalOptions="FillAndExpand"  Padding="0">
+                        <Label Text="Done"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DoneCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</pages:PopupPage>

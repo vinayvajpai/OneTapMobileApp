@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.SelectVideoThumbView"
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             x:DataType="viewmodels:SelectVideoThumbViewModel"
+             xmlns:customViedoView="clr-namespace:OneTapMobile.CustomControl"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             ios:Page.UseSafeArea="false">
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+                <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand" HorizontalOptions="Start">
+                    <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Select a Thumbnail" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0">
+                        <customcontrol:GradientLabel.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                        </customcontrol:GradientLabel.IsVisible>
+                    </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1" FontSize="28" Text="Select a Thumbnail" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0" >
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                        </Label.IsVisible>
+                    </Label>
+                </StackLayout>
+                <!--Image view-->
+
+                <Frame  Grid.Row="2" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" CornerRadius="1" HasShadow="False" Padding="0" Margin="10" BackgroundColor="Black">
+                    <customcontrol:CustomVideoPlayerView x:Name="videoView"  BackgroundColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+                <StackLayout Grid.Row="3"  Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="Center">
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF" BorderColor="{Binding Thumbnail1Border,Mode=TwoWay}" Margin="0,10" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="12" Padding="0" HeightRequest="60" WidthRequest="100" IsClippedToBounds="True">
+                        <ffimageloading:CachedImage x:Name="Thumbnail1" Source="{Binding Thumbnail1, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" Margin="2"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Thumbnail1_Tapped}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF"  BorderColor="{Binding Thumbnail2Border,Mode=TwoWay}"  Margin="10,10" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="12" Padding="0" HeightRequest="60" WidthRequest="100" IsClippedToBounds="True">
+                        <ffimageloading:CachedImage x:Name="Thumbnail2" Source="{Binding Thumbnail2, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" Margin="2"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding Thumbnail2_Tapped}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF"  BorderColor="{Binding Thumbnail3Border,Mode=TwoWay}"  Margin="0,10" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="12" Padding="0" HeightRequest="60" WidthRequest="100" IsClippedToBounds="True">
+                        <ffimageloading:CachedImage x:Name="Thumbnail3" Source="{Binding Thumbnail3, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFit" Margin="2"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding Thumbnail3_Tapped}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
+
+                <Frame Grid.Row="4" Style="{StaticResource FrameStyle}" BackgroundColor="#FFFFFF" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" CornerRadius="12" Padding="15">
+                    <Label Text="Change Video"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="#AC47ED" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeVideoCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+
+                <!--Next Button Leads to facebook categories Option-->
+                <Frame Grid.Row="5" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="10" VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" Padding="15" >
+                    <Label Text="Select Thumbnail"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectThumbnailCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:viewmodels="clr-namespace:OneTapMobile.ViewModels" 
+             xmlns:converter="clr-namespace:OneTapMobile.Converters" 
+             x:DataType="viewmodels:ProfileViewModel"
+             x:Class="OneTapMobile.Views.ProfileView"
+             NavigationPage.HasNavigationBar="False">
+    <!--Page Background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Converters-->
+    <ContentPage.Resources>
+        <converter:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+    </ContentPage.Resources>
+
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid  VerticalOptions="StartAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand" RowSpacing="20" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid  Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <Label Grid.Column="1" Grid.Row="0" Text="Profile" TextColor="Black"  BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="center" FontFamily="{StaticResource BoldFont}"  FontSize="18"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="settings" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="25" WidthRequest="25" Command="{Binding SettingsCmd}"/>
+                </Grid>
+                <Frame Grid.Row="1" HasShadow="True" VerticalOptions="CenterAndExpand" Padding="15"  HorizontalOptions="FillAndExpand" Margin="0,20"  CornerRadius="15" >
+                    <!--Profile block Backgorund-->
+                    <Frame.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="1,1">
+                            <GradientStop  Color="#6A24AB"
+                          Offset="0.0" />
+                            <GradientStop Color="#A23BD6"
+                          Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <!--Profile Block Containt-->
+                    <Grid   Margin="5,0"  ColumnSpacing="20" RowSpacing="0" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+                        <Frame Grid.Row="0" Grid.Column="0" CornerRadius="5" Padding="0" Margin="0" HasShadow="False" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Image Source="{Binding ProfilePic}" Aspect="AspectFill" HeightRequest="30" WidthRequest="30" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                        </Frame>
+                            <!--<customcontrol:GradientLabel  Grid.Row="0" Grid.Column="1" Text="{Binding UserName,Mode=TwoWay}" TextColor1="#FFC984" TextColor2="#FFB29A" FontSize="18"   FontFamily="{StaticResource BoldFont}" Margin="0" >
+                            <customcontrol:GradientLabel.IsVisible>
+                                <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                            </customcontrol:GradientLabel.IsVisible>
+                        </customcontrol:GradientLabel>-->
+                        <Label TextColor="#FFC984" VerticalOptions="CenterAndExpand"  Text="{Binding UserName,Mode=TwoWay}" HorizontalTextAlignment="Start" Grid.Row="0" Grid.Column="1" FontSize="18"  FontFamily="{StaticResource BoldFont}" Margin="0" />
+                        <!--<StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal"  VerticalOptions="CenterAndExpand" HorizontalOptions="Start">
+                            <ImageButton Source="MapPin" HeightRequest="10" WidthRequest="10" BackgroundColor="Transparent"/>
+                            <Label Text="{Binding UserLocation, Mode=TwoWay}" TextColor="#ECCFFF"  FontSize="14" FontFamily="{StaticResource NormalFont}"/>
+                        </StackLayout>-->
+                    </Grid>
+                </Frame>
+                <Frame Grid.Row="2" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" CornerRadius="15"  BackgroundColor="#7C26AD">
+                    <!--Page Content-->
+                    <StackLayout>
+                        <!--title-->
+                        <Label x:Name="AdHistory" Text="Ad History" VerticalOptions="Start" HorizontalOptions="Start" TextColor="White" FontSize="18" FontFamily="{StaticResource BoldFont}"/>
+                        <!--horizontal gradient rule-->
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                            <Frame VerticalOptions="CenterAndExpand" HasShadow="False" HorizontalOptions="FillAndExpand" Margin="0,10" CornerRadius="15" Padding="2">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="0,0">
+                                        <GradientStop Color="#B63FFF"
+                          Offset="0.0" />
+                                        <GradientStop Color="#FFC85C"
+                          Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+                            </Frame>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="3*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Total Ad Spent" Grid.Row="0" Grid.Column="0" TextColor="#ECCFFF" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="Facebook Ad Spent" Grid.Row="1" Grid.Column="0" TextColor="#ECCFFF" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="Google Ad Spent" Grid.Row="2" Grid.Column="0" TextColor="#ECCFFF" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding TotalSpent , Mode=TwoWay}" Grid.Row="0" Grid.Column="1" TextColor="#FFC173" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                                <Label Text="{Binding FBSpent, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" TextColor="#FFC173" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                                <Label Text="{Binding GoogleSpent, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" TextColor="#FFC173" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+                <Frame Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"  CornerRadius="15"  BackgroundColor="#7C26AD" >
+                    <!--Block Containt-->
+                    <StackLayout >
+                        <!--title-->
+                        <Label x:Name="AdIntegration" Text="Ad Integration" VerticalOptions="Center" HorizontalOptions="Start" TextColor="White" FontAttributes="Bold" FontSize="18" FontFamily="{StaticResource BoldFont}"/>
+                        <!--horizontal gradient rule-->
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                            <Frame VerticalOptions="CenterAndExpand" HasShadow="False" HorizontalOptions="FillAndExpand" Margin="0,10" CornerRadius="15" Padding="2">
+                                <Frame.Background>
+                                    <LinearGradientBrush EndPoint="0,0">
+                                        <GradientStop Color="#B63FFF"
+                          Offset="0.0" />
+                                        <GradientStop Color="#FFC85C"
+                          Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Frame.Background>
+                            </Frame>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="7*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0" Grid.Column="0" Padding="0,10">
+                                    <Label Text="Facebook Ads"  TextColor="#ECCFFF" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                                    <Label x:Name="FBAdAccNo"  TextColor="#ECCFFF" FontSize="12" FontFamily="{StaticResource NormalFont}" IsVisible="{Binding ShowFBAdAccNo}"  VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding FBUserName, Mode=TwoWay}"/>
+                                                <Span Text=" ("/>
+                                                <Span Text="{Binding FBAccountId, Mode=TwoWay}"/>
+                                                <Span Text=")"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <!--<Label TextColor="#ECCFFF" FontSize="12" Text="No Account"  FontFamily="{StaticResource NormalFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>-->
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Grid.Column="0">
+                                    <Label Text="Google Ads"  TextColor="#ECCFFF" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                                    <Label x:Name="GoogleAdAccNo" TextColor="#ECCFFF" FontSize="12" FontFamily="{StaticResource NormalFont}" IsVisible="{Binding ShowGoogleAdAccNo}"  VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding GoogleUserName, Mode=TwoWay}"/>
+                                                <Span Text=" ("/>
+                                                <Span Text="{Binding GoogleCustomerId, Mode=TwoWay}"/>
+                                                <Span Text=")"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <!--<Label TextColor="#ECCFFF" FontSize="12" Text="No Account" FontFamily="{StaticResource NormalFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand"/>-->
+                                </StackLayout>
+                                <ImageButton Source="{Binding FBArrowImage,Mode=TwoWay}" Grid.Row="0" Grid.Column="1" IsVisible="{Binding FBDownArrow , Mode=TwoWay}" Command="{Binding FbDownArrowCmd}" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Margin="0,0,10,0"/>
+                                <ImageButton Source="{Binding GoArrowImage,Mode=TwoWay}" Grid.Row="1" Grid.Column="1" IsVisible="{Binding GoogleDownArrow , Mode=TwoWay}" Command="{Binding GoogleDownArrowCmd}" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Margin="0,0,10,0"/>
+                                <Label Text="Connect" Grid.Row="0" Grid.Column="1"  IsVisible="{Binding FBConnectOption , Mode=TwoWay}" TextColor="#FFC173" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding FbConnectCmd , Mode=TwoWay}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label Text="Connect" Grid.Row="1" Grid.Column="1"  IsVisible="{Binding GConnectOption , Mode=TwoWay}"  TextColor="#FFC173" FontSize="14" FontFamily="{StaticResource BoldFont}" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GoogleConnectCmd , Mode=TwoWay}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="{Binding LoaderText}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

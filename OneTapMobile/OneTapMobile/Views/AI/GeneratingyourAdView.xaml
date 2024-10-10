@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneTapMobile.Views.AI.GeneratingyourAdView"
+               xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl" 
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             ios:Page.UseSafeArea="false">
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand" >
+
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                    <ImageButton Grid.Column="2" Grid.Row="0" Source="HelpCircle" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding HelpCommand}"/>
+                </Grid>
+
+                <StackLayout VerticalOptions="Start" HorizontalOptions="StartAndExpand">
+                    <customcontrol:GradientLabel  TextColor1="#6522A8"  TextColor2="#AC47ED"  FontSize="28" Text="Generating your Ad" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0">
+                        <customcontrol:GradientLabel.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                        </customcontrol:GradientLabel.IsVisible>
+                    </customcontrol:GradientLabel>
+                    <Label   TextColor="#862FC1" FontSize="28" Text="Generating your Ad" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" Margin="10,0" >
+                        <Label.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                        </Label.IsVisible>
+                    </Label>
+                </StackLayout>
+                    <Label Text="Onetap AI is currently generating your perfect ad."  MaxLines="3" Style="{StaticResource RegularTextStyle}"  Margin="10,0" />
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="20,5">
+                        <ffimageloading:CachedImage Grid.Row="0" x:Name="image" Source="loading"  HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="10" />
+
+                    </StackLayout>
+
+                <StackLayout HeightRequest="70" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand"  Margin="10,0,10,20">
+                        <Frame x:Name="ContinueFrame" Style="{StaticResource FrameStyle}" BorderColor="#BE7CE9" BackgroundColor="#BE7CE9"  IsEnabled="False" Opacity="0.8">
+                            <Label Text="Generate ad" x:Name="GenerateAdTxt"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Opacity="0.5" TextColor="#FFFFFF" FontSize="16" FontFamily="{StaticResource SemiBoldFont}">
+                            </Label>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GenerateAdCommand}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+            </StackLayout>
+            <!--Loader-->
+            <!--<Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>-->
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

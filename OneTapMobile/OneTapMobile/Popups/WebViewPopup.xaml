@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="OneTapMobile.Popups.WebViewPopup">
+    <Grid Margin="20,30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <WebView Grid.Row="0" x:Name="WebPageView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="600" WidthRequest="300"/>
+
+        <Frame x:Name="OkButton" IsVisible="true" HasShadow="False" Grid.Row="1"  BackgroundColor="#FFC85C" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="10" Padding="5">
+            <Label x:Name="btnOKAY" Text="Ok" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="#1a0033" FontSize="16" FontFamily="{StaticResource SemiBoldFont}"/>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OkButtonPressed" />
+            </Frame.GestureRecognizers>
+        </Frame>
+        
+    </Grid>
+</pages:PopupPage>

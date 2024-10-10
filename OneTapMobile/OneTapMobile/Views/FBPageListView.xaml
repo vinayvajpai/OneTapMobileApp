@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customcontrol="clr-namespace:OneTapMobile.CustomControl"
+             x:Class="OneTapMobile.Views.FBPageListView"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:Popups="clr-namespace:OneTapMobile.Popups" 
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             ios:Page.UseSafeArea="false">
+    <!--Page Background-->
+    <ContentPage.Background>
+        <!--<LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="#FFF5DD"
+                          Offset="0.0"/>
+            <GradientStop Color="#FFE3A5"
+                          Offset="1.0"/>
+        </LinearGradientBrush>-->
+        <LinearGradientBrush>
+            <GradientStop Color="#FFFFFF"/>
+            <GradientStop Color="#FFFFFF"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <!--Page Views-->
+    <ContentPage.Content>
+        <Grid>
+            <Grid  VerticalOptions="FillAndExpand" Margin="{Binding SafeAreaSpacing}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--Navigation Bar-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <ImageButton Grid.Column="0" Grid.Row="0" Source="BackArrow" BackgroundColor="Transparent" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" HeightRequest="30" WidthRequest="30" Command="{Binding BackCommand}"/>
+                </Grid>
+                <customcontrol:GradientLabel  TextColor1="#6522A8" TextColor2="#AC47ED" Grid.Row="1" FontSize="28" Text="Select your Facebook Page" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                    <customcontrol:GradientLabel.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="True"
+                            Android="False"/>
+                    </customcontrol:GradientLabel.IsVisible>
+                </customcontrol:GradientLabel>
+                <Label   TextColor="#862FC1"  Grid.Row="1" FontSize="28" Text="Select your Facebook Page" HorizontalOptions="StartAndExpand" FontFamily="{StaticResource BoldFont}" VerticalOptions="FillAndExpand" Margin="10">
+                    <Label.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean"
+                            iOS="False"
+                            Android="True"/>
+                    </Label.IsVisible>
+                </Label>
+                <!--Facebook Page List-->
+                <ListView x:Name="PageList"  SelectedItem="{Binding SelectedPage, Mode=TwoWay}" Grid.Row="2" SeparatorVisibility="None"  ItemsSource="{Binding PageList}" BackgroundColor="Transparent" HasUnevenRows="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame x:Name="frm" Style="{StaticResource FrameStyle}" xct:ShadowEffect.Color="#C6C6C6" xct:ShadowEffect.OffsetY="0" xct:ShadowEffect.OffsetX="0"  xct:ShadowEffect.Radius="5" Margin="10" CornerRadius="10" VerticalOptions="FillAndExpand" Padding="20"  BorderColor="{Binding SelectionColor}">
+                                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="10*"/>
+                                            <ColumnDefinition Width="30"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Frame Grid.Column="0" BackgroundColor="#FFB14E" HeightRequest="30" WidthRequest="30" HorizontalOptions="Start" HasShadow="False" Padding="0" VerticalOptions="FillAndExpand"/>
+                                        <Label Grid.Column="1" Text="{Binding page_name}"  HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Center" TextColor="Black" FontSize="15" FontFamily="{StaticResource SemiBoldFont}"/>
+                                        <Image Grid.Column="2" Source="GrayRightTick"  IsVisible="{Binding NotChecked, Mode=TwoWay}"/>
+                                        <Image Grid.Column="2"  Source="RightTickGreen"  IsVisible="{Binding PageChecked, Mode=TwoWay}"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <!--Next Button Leads to facebook categories Option-->
+                <Frame Grid.Row="3" Style="{StaticResource FrameStyle}" BackgroundColor="#AC47ED"  Margin="10" VerticalOptions="FillAndExpand" Opacity="{Binding OpacityBtn}" IsEnabled="{Binding IsEnabledBtn, Mode=TwoWay}" >
+                    <Label Text="Next"  HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="White" FontSize="18" FontFamily="{StaticResource SemiBoldFont}"/>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NextBtnClicked}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <!--If No Page Will load This Will Show-->
+                <Label x:Name="NotFoundText" Grid.RowSpan="4" IsVisible="{Binding IsshowEmpty}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="No Page found" TextColor="#6522A8"  FontFamily="{StaticResource NormalFont}" FontSize="14" />
+            </Grid>
+            <!--Loader-->
+            <Popups:LoaderView  IsVisible="{Binding IsBusy}" LoadderText="Please Wait.." HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

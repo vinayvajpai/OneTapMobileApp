@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OneTapMobile.CustomControl.TagViewControl">
+    <ContentView.Content>
+        <StackLayout>
+            <Frame  HasShadow="False" Padding="5,0" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="5,2" CornerRadius="10" BackgroundColor="#AC47ED">
+                <StackLayout Orientation="Horizontal" Margin="5" HorizontalOptions="FillAndExpand">
+                    <Label x:Name="lblTagTitle" TextColor="White" HorizontalOptions="StartAndExpand" FontSize="13" FontFamily="{StaticResource SemiBoldFont}" VerticalOptions="CenterAndExpand"/>
+                    <Label x:Name="TagKey" TextColor="White" HorizontalOptions="StartAndExpand" FontSize="13" FontFamily="{StaticResource SemiBoldFont}" VerticalOptions="CenterAndExpand" IsVisible="false"/>
+                    <Label Text="X" VerticalOptions="CenterAndExpand" FontSize="13" FontFamily="{StaticResource SemiBoldFont}" TextColor="White"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="RemoveTag_Tapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
+    
