@@ -154,30 +154,6 @@ namespace OneTapMobile.Views
                     await PopupNavigation.Instance.PushAsync(popupnav);
                 }
 
-
-                //Console.Write("Enter the client ID: ");
-                //string clientId = "566011961148-316hc3opclcf8go0f731uqtsmdr5h1pv.apps.googleusercontent.com";//"566011961148-ak6pd2gh7ahdb35mlergkg7h8gkg0daa.apps.googleusercontent.com";
-                //string redirectURL = "com.googleusercontent.apps.566011961148-316hc3opclcf8go0f731uqtsmdr5h1pv:/oauth2callback";
-                //if (Device.RuntimePlatform == Device.Android)
-                //{
-                //    clientId = "566011961148-qp77k6421vvbajt6p91qc724tkgfe16r.apps.googleusercontent.com";
-                //    redirectURL = "com.onetapsocial.onetap:/oauth2redirect";
-                //}
-
-                //// Accept the client ID from user.
-                //Console.Write("Enter the client secret: ");
-                //string clientSecret = "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";
-                //var authenticator = new OAuth2Authenticator(clientId, null, "email",
-                //                new Uri("https://accounts.google.com/o/oauth2/v2/auth"),
-                //                new Uri(redirectURL),
-                //                new Uri("https://oauth2.googleapis.com/token"),
-                //                isUsingNativeUI: true);
-                //Auth = authenticator;
-                //authenticator.Completed += Authenticator_Completed;
-                //authenticator.Error += Authenticator_Error;
-                //var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-                //Auth = authenticator;
-                //presenter.Login(authenticator);
             }
             catch (Exception ex)
             {
